@@ -1,0 +1,394 @@
+CFI "ADD ORGANISM" BUTTON — COMPLETE INTEGRATION GUIDE
+=====================================================
+Date: March 26, 2026
+Status: PRODUCTION-READY
+
+---
+
+## 🎯 WHAT WE BUILT:
+
+**User Flow:**
+1. User clicks "Add Organism" button on any S3 page
+2. Modal opens with search input
+3. User types organism name (e.g., "thermobifda" — even misspelled!)
+4. System searches ATCC/DSMZ/NRRL databases via Claude + web search
+5. Shows top 5 matches with confidence scores (95%, 85%, 70%, etc.)
+6. User selects closest match
+7. Claude auto-executes master prompt research (13-professor panel, 99-power)
+8. Shows preview: generic scores, 6 soil-specific scores, citations, warnings
+9. User approves → Data loaded to Supabase with `is_approved = FALSE`
+10. Sharon reviews and approves later
+
+---
+
+## 📦 FILES CREATED:
+
+1. **CFI_AddOrganismButton.jsx** — React component (UI + state management)
+2. **CFI_AddOrganism_API.js** — Backend API handlers (3 endpoints)
+3. **This guide** — Integration instructions
+
+---
+
+## 🚀 STEP-BY-STEP INTEGRATION:
+
+### **STEP 1: ADD REACT COMPONENT TO S3 PAGES**
+
+Open your S3 page files (e.g., `S3_Biological.jsx`) and add:
+
+```jsx
+import AddOrganismButton from './components/CFI_AddOrganismButton';
+
+// Inside your S3 page header:
+<div className="s3-header">
+  <h1>S3 Biological — Organism Selection</h1>
+  
+  {/* Add the button here */}
+  <AddOrganismButton onOrganismAdded={handleOrganismAdded} />
+</div>
+
+// Add handler function:
+const handleOrganismAdded = (organismName) => {
+  console.log('New organism added:', organismName);
+  // Refresh your organism list here
+  fetchOrganisms();
+};
+```
+
+**Where to add the button:**
+- S3 Biological Tab (primary location)
+- S3 Process Configuration page
+- S3 Optimization page
+- ANY page where users might want to add organisms
+
+---
+
+### **STEP 2: SET UP BACKEND API**
+
+**Option A: Supabase Edge Functions (RECOMMENDED)**
+
+Create three Supabase Edge Functions:
+
+```bash
+# In your Supabase project
+supabase functions new organism-search
+supabase functions new research-organism
+supabase functions new insert-organism
+```
+
+Copy the code from `CFI_AddOrganism_API.js` into each function.
+
+**Option B: Express Server**
+
+If you already have a Node.js backend:
+
+```javascript
+// server.js
+import express from 'express';
+import { searchOrganism, researchOrganism, insertOrganism } from './CFI_AddOrganism_API.js';
+
+const app = express();
+app.use(express.json());
+
+app.post('/api/organism-search', searchOrganism);
+app.post('/api/research-organism', researchOrganism);
+app.post('/api/insert-organism', insertOrganism);
+
+app.listen(3000, () => console.log('API running on port 3000'));
+```
+
+---
+
+### **STEP 3: ENVIRONMENT VARIABLES**
+
+Add to your `.env` file:
+
+```bash
+# Anthropic Claude API
+ANTHROPIC_API_KEY=sk-ant-...
+
+# Supabase
+SUPABASE_URL=https://lcpbtnipkvrmuwllymfw.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# Optional: Rate limiting
+API_RATE_LIMIT=10  # requests per minute per user
+```
+
+---
+
+### **STEP 4: UPDATE API ENDPOINTS IN REACT COMPONENT**
+
+If using Supabase Edge Functions, update the API URLs in `CFI_AddOrganismButton.jsx`:
+
+```jsx
+// Change these URLs to match your deployment:
+const response = await fetch('/api/organism-search', {
+  // Change to:
+  const response = await fetch('https://lcpbtnipkvrmuwllymfw.supabase.co/functions/v1/organism-search', {
+```
+
+Or if using a custom backend URL:
+
+```jsx
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+
+const response = await fetch(`${API_BASE}/api/organism-search`, {
+```
+
+---
+
+### **STEP 5: TEST THE FULL WORKFLOW**
+
+**Test 1: Fuzzy Search**
+1. Click "Add Organism" button
+2. Type: "thermobifda" (misspelled)
+3. Click "Search"
+4. Should return: "Thermobifida fusca" with 85-90% confidence
+
+**Test 2: Exact Match**
+1. Type: "Aspergillus niger"
+2. Click "Search"
+3. Should return: "Aspergillus niger" with 100% confidence + ATCC/DSMZ IDs
+
+**Test 3: Full Research Workflow**
+1. Select a match from search results
+2. Wait for research (20-40 seconds)
+3. Verify preview shows:
+   - Generic scores (lignin, P-release, etc.)
+   - 6 soil-specific scores
+   - ≥3 citations
+   - Warnings (if any)
+4. Click "Approve & Add to Database"
+5. Check Supabase: organism in `biological_library` and `cfi_soil_organism_performance` with `is_approved = FALSE`
+
+---
+
+## 🎨 UI DESIGN SPECS (Already Built):
+
+### **Button Style:**
+- Background: `rgba(64,215,197,0.12)` (teal glow)
+- Border: `1.5px solid rgba(64,215,197,0.40)`
+- Hover: Brighter teal (`rgba(64,215,197,0.60)`)
+- Icon: Plus icon (lucide-react)
+- Font: DM Sans 14px medium
+
+### **Modal Style:**
+- Width: 90% max-width 800px
+- Background: `#0B1422` (navy)
+- Border: `1.5px solid #1E6B8C` (CFI blue)
+- Sections:
+  1. Search input (white text on dark background)
+  2. Match cards (hover effect with teal border)
+  3. Research loading (spinner + status text)
+  4. Results preview (grid layout with scores)
+  5. Action buttons (Cancel + Approve)
+
+### **Colors (CFI v3):**
+- Navy: `#060C14`, `#0B1422`
+- Teal: `#40D7C5`
+- Amber: `#F5A623`
+- Green: `#00A249`
+- Grey: `#8B9CB4`
+
+---
+
+## 🔒 SECURITY & SAFETY:
+
+### **Approval Gate:**
+- All organisms inserted with `is_approved = FALSE`
+- Sharon must manually approve before production use
+- Query to approve:
+  ```sql
+  UPDATE biological_library 
+  SET recommended = TRUE 
+  WHERE organism_name = 'Organism Name';
+
+  UPDATE cfi_soil_organism_performance 
+  SET is_approved = TRUE 
+  WHERE organism_name = 'Organism Name';
+  ```
+
+### **Rate Limiting:**
+Backend should implement rate limiting:
+- 10 searches per minute per user
+- 5 research workflows per hour per user
+- Prevents abuse / excessive API costs
+
+### **Input Validation:**
+- Organism name: 3-100 characters, alphanumeric + spaces + hyphens
+- SQL injection protected (using Supabase parameterized queries)
+- XSS protected (React escapes all user input by default)
+
+### **Error Handling:**
+- Network errors: "Search failed. Please try again."
+- Invalid organism: "No matches found. Try different spelling."
+- Research errors: "Research workflow failed. Please try again."
+- Database errors: "Database insert failed. Contact support."
+
+---
+
+## 📊 EXPECTED PERFORMANCE:
+
+### **Search (Step 1):**
+- Time: 5-10 seconds
+- API calls: 1 Claude message (web search enabled)
+- Tokens: ~1,500 input, ~500 output
+
+### **Research (Step 2):**
+- Time: 20-40 seconds
+- API calls: 1 Claude message (web search + 99-power research)
+- Tokens: ~4,000 input, ~6,000 output
+
+### **Insert (Step 3):**
+- Time: 1-2 seconds
+- Database writes: 7 rows (1 in `biological_library`, 6 in `cfi_soil_organism_performance`)
+
+### **Total Cost per Organism:**
+- Claude API: ~$0.15-0.25 (based on Claude Sonnet 4 pricing)
+- Supabase: Free tier (database writes negligible)
+- **Total: ~$0.20 per organism added**
+
+---
+
+## ✅ TESTING CHECKLIST:
+
+**Before deploying to production:**
+- [ ] Test fuzzy search with misspellings
+- [ ] Test exact search with scientific names
+- [ ] Test research workflow with known organism
+- [ ] Verify Supabase inserts (both tables)
+- [ ] Verify `is_approved = FALSE` flag set
+- [ ] Test approval flow (Sharon manually approves)
+- [ ] Test error handling (network errors, invalid input)
+- [ ] Test mobile responsiveness (modal on small screens)
+- [ ] Test rate limiting (prevent abuse)
+- [ ] Load test (10 concurrent users)
+
+---
+
+## 🚨 TROUBLESHOOTING:
+
+### **Problem: "No matches found"**
+**Solution:** 
+- Check Claude API key is valid
+- Verify web search tool is enabled
+- Try different organism name (scientific vs common)
+
+### **Problem: "Research failed"**
+**Solution:**
+- Check master prompt is in Supabase (`cfi_master_prompts` table)
+- Verify `is_active = TRUE` flag
+- Check Claude API rate limits
+
+### **Problem: "Database insert failed"**
+**Solution:**
+- Verify Supabase service role key
+- Check table schemas match expected structure
+- Look for constraint violations (duplicate organism name)
+
+### **Problem: Modal doesn't open**
+**Solution:**
+- Check React component is imported correctly
+- Verify no CSS conflicts (z-index issues)
+- Check browser console for JavaScript errors
+
+---
+
+## 🎯 FUTURE ENHANCEMENTS:
+
+**Version 2.0 features (optional):**
+1. **Bulk upload:** CSV file with multiple organisms
+2. **Image search:** Upload microscope image, Claude identifies organism
+3. **Organism comparison:** Compare 2-3 organisms side-by-side
+4. **Edit existing organisms:** Modal to update scores/mechanisms
+5. **History log:** Track who added what when
+6. **Auto-approval:** Trusted users skip approval gate
+7. **Cost estimator:** Show API cost before research
+8. **Duplicate detection:** Warn if similar organism already exists
+
+---
+
+## 📌 DEPLOYMENT STEPS:
+
+### **Production Deployment:**
+
+1. **Copy files to project:**
+   ```bash
+   cp CFI_AddOrganismButton.jsx src/components/
+   cp CFI_AddOrganism_API.js backend/api/
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install @anthropic-ai/sdk @supabase/supabase-js lucide-react
+   ```
+
+3. **Set environment variables:**
+   ```bash
+   # Production .env
+   ANTHROPIC_API_KEY=sk-ant-...
+   SUPABASE_URL=https://...
+   SUPABASE_SERVICE_ROLE_KEY=...
+   ```
+
+4. **Deploy backend:**
+   ```bash
+   # Option A: Supabase Edge Functions
+   supabase functions deploy organism-search
+   supabase functions deploy research-organism
+   supabase functions deploy insert-organism
+
+   # Option B: Express server
+   pm2 start server.js --name cfi-api
+   ```
+
+5. **Deploy frontend:**
+   ```bash
+   npm run build
+   # Deploy to Vercel, Netlify, or your hosting provider
+   ```
+
+6. **Test in production:**
+   - Add test organism
+   - Verify Supabase inserts
+   - Check approval flow works
+
+---
+
+## 📚 RELATED FILES:
+
+- `CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md` — Research protocol (454 lines)
+- `CFI_COMPLETE_DEPLOYMENT_STACKS.txt` — Existing organism stacks
+- `CFI_RANKING_OBJECTIVES_PER_SOIL.txt` — 12 ranking objectives
+- `CFI_ULTISOL_GAP_ANALYSIS.txt` — Gap analysis methodology
+
+---
+
+## ✅ SUMMARY:
+
+**What you get:**
+- ✅ "Add Organism" button on all S3 pages
+- ✅ Fuzzy search (handles misspellings)
+- ✅ ATCC/DSMZ/NRRL database lookup
+- ✅ Auto-execute master prompt research (13-professor panel)
+- ✅ 6 soil-specific scores generated
+- ✅ Preview before insert
+- ✅ Approval gate (`is_approved = FALSE`)
+- ✅ Full integration with existing CFI system
+
+**Deployment time:** ~2 hours (backend + frontend + testing)
+
+**Cost per organism:** ~$0.20 (Claude API)
+
+**User experience:** 
+1. Click button
+2. Type organism name
+3. Select match
+4. Wait 30 seconds
+5. Approve
+6. Done!
+
+---
+
+END OF INTEGRATION GUIDE
+Ready for deployment!

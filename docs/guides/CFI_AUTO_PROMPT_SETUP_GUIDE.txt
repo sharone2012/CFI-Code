@@ -1,0 +1,313 @@
+CFI MASTER PROMPT AUTO-EXECUTION SETUP
+=======================================
+Date: March 26, 2026
+Goal: Run CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md automatically when user uploads new organism
+
+---
+
+## 🎯 WHAT YOU WANT:
+
+**Trigger:** User says "Add new organism: [organism_name]" OR uploads organism data  
+**Action:** Claude automatically loads and follows CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md  
+**Result:** New organism researched + scored + loaded to Supabase without manual prompting
+
+---
+
+## 📋 IMPLEMENTATION OPTIONS:
+
+### **OPTION 1: SUPABASE DATABASE TRIGGER (RECOMMENDED)**
+
+Store the master prompt in Supabase, then create a database function that loads it automatically.
+
+#### **Step 1: Create table to store master prompts**
+
+```sql
+CREATE TABLE IF NOT EXISTS cfi_master_prompts (
+  id SERIAL PRIMARY KEY,
+  prompt_name TEXT UNIQUE NOT NULL,
+  prompt_version TEXT NOT NULL,
+  prompt_text TEXT NOT NULL,
+  trigger_keywords TEXT[] NOT NULL,  -- e.g., ['add organism', 'new organism', 'upload organism']
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Insert the master prompt
+INSERT INTO cfi_master_prompts (prompt_name, prompt_version, prompt_text, trigger_keywords)
+VALUES (
+  'NEW_ORGANISM_ONBOARDING',
+  'v2.0',
+  '... [full CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md text here] ...',
+  ARRAY['add organism', 'new organism', 'upload organism', 'add new organism']
+);
+```
+
+#### **Step 2: Claude checks this table when detecting trigger keywords**
+
+```javascript
+// In your app / Claude's logic:
+const userMessage = "Add new organism: Thermobifida fusca";
+
+// Check if trigger keyword present
+const { data: prompts } = await supabase
+  .from('cfi_master_prompts')
+  .select('prompt_text')
+  .eq('prompt_name', 'NEW_ORGANISM_ONBOARDING')
+  .eq('is_active', true)
+  .single();
+
+if (prompts) {
+  // Load prompt text and execute
+  const masterPrompt = prompts.prompt_text;
+  // Claude follows this prompt for the organism research
+}
+```
+
+**PROS:**
+- ✅ Prompt stored in database (version controlled)
+- ✅ Easy to update without code changes
+- ✅ Can enable/disable with `is_active` flag
+- ✅ Multiple prompts for different triggers
+
+**CONS:**
+- ⚠️ Requires Supabase table creation
+- ⚠️ Needs frontend or backend logic to check triggers
+
+---
+
+### **OPTION 2: LOVABLE CUSTOM INSTRUCTION (SIMPLER)**
+
+Upload the master prompt to Lovable as a "custom instruction" that triggers on keyword.
+
+#### **Step 1: Create Lovable instruction file**
+
+```markdown
+# CFI Organism Upload Handler
+
+TRIGGER: When user says any of:
+- "Add organism: [name]"
+- "New organism: [name]"
+- "Upload organism: [name]"
+- "Add new organism: [name]"
+
+ACTION: Automatically load and follow the master prompt at:
+`/mnt/project/CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md`
+
+WORKFLOW:
+1. Detect organism name from user message
+2. Load master prompt from project files
+3. Execute 13-professor research panel
+4. Generate organism data (generic + 6 soil-specific scores)
+5. Apply guardrails
+6. Insert to Supabase
+7. Request Sharon approval
+```
+
+**PROS:**
+- ✅ Simple setup (just upload instruction)
+- ✅ No database changes needed
+- ✅ Works in Lovable chat interface
+
+**CONS:**
+- ⚠️ Only works in Lovable environment
+- ⚠️ Harder to version control
+
+---
+
+### **OPTION 3: GITHUB ACTION (MOST AUTOMATED)**
+
+Create a GitHub Action that triggers when a new organism file is pushed to `/organisms/new/`.
+
+#### **Step 1: Create GitHub workflow**
+
+```yaml
+# .github/workflows/organism-onboarding.yml
+name: CFI Organism Onboarding
+
+on:
+  push:
+    paths:
+      - 'organisms/new/*.json'
+
+jobs:
+  onboard-organism:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Get organism file
+        id: get-file
+        run: |
+          ORGANISM_FILE=$(ls organisms/new/*.json | head -1)
+          echo "file=$ORGANISM_FILE" >> $GITHUB_OUTPUT
+      
+      - name: Run master prompt
+        uses: anthropics/claude-action@v1
+        with:
+          prompt-file: ./CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md
+          input-file: ${{ steps.get-file.outputs.file }}
+          output-file: ./organisms/processed/output.json
+      
+      - name: Upload to Supabase
+        run: |
+          # Your Supabase upload script here
+          node scripts/upload-organism.js ./organisms/processed/output.json
+```
+
+**PROS:**
+- ✅ Fully automated (push JSON → research → upload)
+- ✅ GitHub-based version control
+- ✅ Can run on schedule (e.g., nightly batch)
+
+**CONS:**
+- ⚠️ Most complex setup
+- ⚠️ Requires GitHub Actions knowledge
+- ⚠️ Need Claude API integration
+
+---
+
+## 🚀 RECOMMENDED APPROACH: HYBRID
+
+**Use Supabase database trigger + Lovable instruction**
+
+### **Implementation steps:**
+
+#### **1. Store master prompt in Supabase (one-time setup)**
+
+```sql
+-- Run this migration in Supabase SQL Editor
+CREATE TABLE IF NOT EXISTS cfi_master_prompts (
+  id SERIAL PRIMARY KEY,
+  prompt_name TEXT UNIQUE NOT NULL,
+  prompt_version TEXT NOT NULL,
+  prompt_text TEXT NOT NULL,
+  trigger_keywords TEXT[] NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Insert the master prompt
+-- (Copy full text from CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md)
+INSERT INTO cfi_master_prompts (prompt_name, prompt_version, prompt_text, trigger_keywords)
+VALUES (
+  'NEW_ORGANISM_ONBOARDING',
+  'v2.0',
+  '... [full prompt text] ...',
+  ARRAY['add organism', 'new organism', 'upload organism']
+);
+```
+
+#### **2. Create Lovable instruction to check database**
+
+```markdown
+# LOVABLE INSTRUCTION: CFI Organism Auto-Upload
+
+TRIGGER DETECTION:
+When user message contains ANY of:
+- "add organism"
+- "new organism"
+- "upload organism"
+- Pattern: "Add [name]" where name is capitalized
+
+EXECUTION FLOW:
+1. Extract organism name from user message
+2. Query Supabase: SELECT prompt_text FROM cfi_master_prompts WHERE prompt_name = 'NEW_ORGANISM_ONBOARDING'
+3. Load prompt_text as system instructions
+4. Execute research workflow with 13-professor panel
+5. Generate organism data
+6. Insert to biological_library + cfi_soil_organism_performance
+7. Set is_approved = FALSE
+8. Notify Sharon for approval
+
+RESPONSE TO USER:
+"✅ Auto-detected organism upload request for [name]. Running master prompt v2.0..."
+[execute research]
+"✅ Research complete. Organism data loaded to Supabase (pending your approval)."
+```
+
+#### **3. Upload instruction to Lovable**
+
+Go to Lovable → Settings → Custom Instructions → Upload `CFI_ORGANISM_AUTO_UPLOAD.md`
+
+---
+
+## ✅ TESTING THE SETUP
+
+### **Test 1: Manual trigger**
+```
+User: "Add organism: Thermobifida fusca"
+Expected: Claude loads master prompt, researches organism, inserts to DB
+```
+
+### **Test 2: Abbreviated trigger**
+```
+User: "Add Thermobifida fusca"
+Expected: Same workflow executes
+```
+
+### **Test 3: Multiple organisms**
+```
+User: "Add organisms: Thermobifida fusca, Geobacillus stearothermophilus"
+Expected: Sequential execution for both organisms
+```
+
+---
+
+## 📊 CURRENT STATUS
+
+**Master prompt location:**
+- ✅ File: `/mnt/user-data/outputs/CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md`
+- ✅ Content: Complete (13 personas, tropical sources, anti-hallucination, guardrails)
+- ✅ Version: v2.0 (March 26, 2026)
+
+**What needs setup:**
+- ⏳ Supabase table `cfi_master_prompts` (5 min)
+- ⏳ Lovable custom instruction upload (5 min)
+- ⏳ Test trigger detection (10 min)
+
+**Total setup time: ~20 minutes**
+
+---
+
+## 🎯 NEXT STEPS (FOR YOU, SHARON):
+
+### **IMMEDIATE (5 min):**
+1. Run the Supabase migration above to create `cfi_master_prompts` table
+2. Copy full text from `CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md` into the INSERT statement
+3. Execute migration in Supabase SQL Editor
+
+### **THEN (5 min):**
+4. Go to Lovable → Settings → Custom Instructions
+5. Create new instruction: "CFI Organism Auto-Upload"
+6. Paste the Lovable instruction text above
+
+### **FINALLY (10 min):**
+7. Test by saying: "Add organism: Thermobifida fusca"
+8. Verify Claude loads prompt and executes research
+9. Check Supabase for new organism data
+
+---
+
+## 🚨 IMPORTANT NOTES
+
+**Approval gate stays in place:**
+- All AI-generated organism data still goes to Supabase with `is_approved = FALSE`
+- You still review and approve before production use
+- This just automates the RESEARCH step, not the APPROVAL step
+
+**Master prompt updates:**
+- To update the prompt: Edit row in `cfi_master_prompts` table
+- No code changes needed
+- Change `prompt_version` to track updates
+
+**Multiple prompts supported:**
+- Can add more prompts for different triggers
+- E.g., "RESIDUE_ONBOARDING" for new residue streams
+- Same table, different `prompt_name`
+
+---
+
+END OF AUTO-EXECUTION SETUP GUIDE
+Ready for implementation!

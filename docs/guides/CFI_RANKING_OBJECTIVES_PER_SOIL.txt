@@ -1,0 +1,335 @@
+CFI S3 BIOLOGICAL — RANKING OBJECTIVES PER SOIL
+===============================================
+Date: March 26, 2026
+Status: PRODUCTION-READY for UI deployment
+12 objectives × 6 soils = 72 ranked organism lists
+
+---
+
+## 🎯 HOW TO USE THIS FILE:
+
+**For each soil type, this file shows:**
+1. Which ranking objectives are MOST RELEVANT for that soil
+2. Top 5 organisms per objective
+3. Why that objective matters for that soil
+4. Safety gates and constraints
+
+**UI implementation:** React developer builds 12 buttons → Each button calls `rank_organisms_by_objective(soil, objective, 10)`
+
+---
+
+## 🌱 INCEPTISOL (39% Indonesian palms — MOST COMMON)
+
+**Soil characteristics:** pH 4.1, CEC 12 cmol/kg, P-fixation 28%, N-leaching 18%  
+**Strategy:** Maximize high-performance organisms on healthy well-aerated soil
+
+### **PRIORITY OBJECTIVES FOR INCEPTISOL:**
+
+1. ⭐ **VALUE FOR MONEY** (HIGHEST PRIORITY)
+   - Reason: Budget optimization on largest market segment
+   - Top organisms: B. subtilis (0.016) → LAB (0.028) → Rhizopus (0.036) → Saccharomyces (0.058) → Azotobacter (0.100)
+
+2. ⭐ **LIGNIN DEGRADATION** (HIGH PRIORITY)
+   - Reason: EFB 22% ADL needs reduction to 14-17%
+   - Top organisms: Phanerochaete (4.8★) → Trichoderma (4.5★) → Aspergillus (4.5★) → Trametes (4.2★) → Xylanase (4.0★)
+
+3. ⭐ **BSF-READY SUBSTRATE** (HIGH PRIORITY)
+   - Reason: S3→S4 optimization critical for protein yield
+   - Top organisms: LAB (pH control) → Saccharomyces (C:N adjust) → Rhizopus (phytase) → Aspergillus (citric) → Trichoderma (toxin removal)
+
+4. **P-RELEASE** (MEDIUM PRIORITY)
+   - Reason: P-fixation 28% (MODERATE)
+   - Top organisms: Aspergillus (4.5★) → B. megaterium (4.0★) → Glomus mosseae (4.5★) → Pseudomonas (3.8★)
+
+5. **N-FIXING** (MEDIUM PRIORITY)
+   - Reason: N-leaching 18% (MODERATE)
+   - Top organisms: Azotobacter (4.0★) → Azospirillum (3.5★) → Rhizobium (3.0★)
+
+**Lower priority:** N-Trap (18% leaching moderate), K-Retention (CEC adequate), Liming (pH 4.1 acceptable), Fe-Mgmt (no POS issues), Acid Tolerance (pH 4.1 moderate), N2O-Safe (aerobic soil)
+
+---
+
+## 🌱 ULTISOL (24% Indonesian palms — SECOND MOST COMMON)
+
+**Soil characteristics:** pH 4.5, CEC 10 cmol/kg, P-fixation 45%, N-leaching 25%  
+**Strategy:** Kaolinite clay specialization + pH control + erosion management
+
+### **PRIORITY OBJECTIVES FOR ULTISOL:**
+
+1. ⭐ **P-RELEASE** (HIGHEST PRIORITY)
+   - Reason: P-fixation 45% (HIGH) on kaolinite clay
+   - Top organisms: Aspergillus (4.5★ kaolinite) → B. megaterium (4.2★ gluconic) → Rhizopus (4.0★ phytase) → Trichoderma (4.0★) → Glomus (3.8★)
+
+2. ⭐ **VALUE FOR MONEY** (HIGH PRIORITY)
+   - Reason: Cost optimization on second-largest segment
+   - Top organisms: B. subtilis (0.023) → LAB (0.024) → Rhizopus (0.045) → Saccharomyces (0.073) → Azotobacter (0.080)
+
+3. ⭐ **N-TRAP** (HIGH PRIORITY)
+   - Reason: N-leaching 25% (HIGHEST after Spodosol)
+   - Top organisms: LAB (pH 5.5-6.0 nitrification) → Saccharomyces (NH3 retention) → B. coagulans (spore persistence) → Azotobacter (EPS)
+
+4. **LIGNIN DEGRADATION** (MEDIUM PRIORITY)
+   - Reason: EFB 22% ADL needs reduction
+   - Top organisms: Phanerochaete (4.0★) → Trichoderma (4.0★ cellulase pH 4.5) → Aspergillus (4.5★) → Xylanase (3.8★)
+
+5. **BSF-READY** (MEDIUM PRIORITY)
+   - Reason: pH control critical for S4 transition
+   - Top organisms: LAB (pH 5.5-6.0) → Saccharomyces (C:N) → Rhizopus (phytase) → Aspergillus (citric)
+
+**Lower priority:** K-Retention (CEC 10 adequate), Liming (pH 4.5 acceptable), Fe-Mgmt (no POS), Acid Tolerance (pH 4.5 moderate), N2O-Safe (aerobic)
+
+---
+
+## 🌱 OXISOL (8% Indonesian palms — EXTREME P-FIXATION)
+
+**Soil characteristics:** pH 4.4, CEC 6 cmol/kg, P-fixation 65%, N-leaching 22%  
+**Strategy:** EXTREME P-solubilizers CRITICAL + mandatory liming 1.5 t/ha
+
+### **PRIORITY OBJECTIVES FOR OXISOL:**
+
+1. ⭐⭐⭐ **P-RELEASE** (CRITICAL — TOP PRIORITY!)
+   - Reason: P-fixation 65% (EXTREME) — gibbsite/goethite Fe/Al oxides
+   - Top organisms: **Aspergillus (4.8★ HIGHEST!)** → Acaulospora AMF (4.5★) → B. megaterium (4.2★) → Pseudomonas (4.0★) → Trichoderma (4.0★)
+   - 🚨 **MANDATORY:** Liming 1.5 t/ha CaCO₃ (pH 4.4→5.0) before deployment
+
+2. ⭐ **LIMING RESPONSE** (HIGH PRIORITY)
+   - Reason: Mandatory liming 1.5 t/ha required
+   - Top organisms: B. licheniformis (thermophilic) → Nitrosomonas (POST-lime ONLY) → B. subtilis (lime-responsive) → Aspergillus (citric synergy)
+   - ⚠️ **POST-LIME ONLY:** Nitrosomonas suppressed pH <4.5
+
+3. ⭐ **ACID TOLERANCE** (HIGH PRIORITY)
+   - Reason: pH 4.4 (EXTREME acid stress)
+   - Top organisms: Acaulospora (acid-specialist AMF) → Aspergillus (pH 4.0-5.5) → LAB (pH 3.5-6.5) → B. subtilis (spore resilience)
+
+4. **VALUE FOR MONEY** (MEDIUM PRIORITY)
+   - Reason: Budget optimization
+   - Top organisms: LAB (0.022) → B. subtilis (0.023) → Rhizopus (0.036) → Saccharomyces (0.058) → Azotobacter (0.080)
+
+5. **LIGNIN DEGRADATION** (MEDIUM PRIORITY)
+   - Reason: EFB delignification
+   - Top organisms: Phanerochaete (3.8★) → Trichoderma (4.0★ reduced activity) → Aspergillus (4.8★) → Xylanase (4.0★)
+
+**Lower priority:** N-Fixing (adequate), N-Trap (22% moderate), K-Retention (CEC 6 low but not critical), BSF-Ready (secondary to P-release), Fe-Mgmt (no POS), N2O-Safe (aerobic)
+
+**🚨 CRITICAL SAFETY:**
+- Liming 1.5 t/ha CaCO₃ MANDATORY before organism deployment
+- AMF organisms (Acaulospora) — Liming PROHIBITED (kills colonization)
+- Nitrosomonas — POST-LIME ONLY
+
+---
+
+## 🌱 HISTOSOL / PEAT (7% Indonesian palms — WATERLOGGED, N2O RISK)
+
+**Soil characteristics:** pH 3.8, CEC 40 cmol/kg (organic), P-fixation 28%, N-leaching 8%  
+**Strategy:** CFI aerobic zones = competitive advantage; N2O safety CRITICAL
+
+### **PRIORITY OBJECTIVES FOR HISTOSOL:**
+
+1. ⭐⭐⭐ **N2O-SAFE** (CRITICAL — TOP PRIORITY!)
+   - Reason: N2O amplification risk 5→15+ kg/ha/yr on waterlogged peat
+   - Safe organisms: **Lactobacillus (4.2★ SAFE)** → Cellulomonas fimi (4.0★) → B. subtilis (3.8★) → Saccharomyces (3.8★) → B. coagulans (4.0★)
+   - 🚨 **PROHIBITED:** Azotobacter vinelandii (2.0★), Azospirillum brasilense (2.0★)
+
+2. ⭐ **ACID TOLERANCE** (HIGH PRIORITY)
+   - Reason: pH 3.8 (EXTREME acid — LOWEST of all soils)
+   - Top organisms: Acaulospora (acid-specialist AMF) → LAB (pH 3.5-6.5) → Aspergillus (3.0★ conditional) → Trichoderma (3.5★ IF aerobic)
+
+3. ⭐ **VALUE FOR MONEY** (HIGH PRIORITY)
+   - Reason: Budget optimization on challenging soil
+   - Top organisms: B. subtilis (0.021) → LAB (0.026) → Rhizopus (0.036) → Saccharomyces (0.076) → B. coagulans (0.172)
+
+4. **BSF-READY** (MEDIUM PRIORITY)
+   - Reason: CFI creates aerobic zones for BSF
+   - Top organisms: LAB (pH control 3.8→6.5) → Cellulomonas (facultative) → Saccharomyces (anaerobic-compatible) → B. coagulans (thermophilic)
+
+5. **LIGNIN DEGRADATION** (LOW PRIORITY)
+   - Reason: Conditional on aerobic zone creation
+   - Top organisms: Trichoderma (3.5★ IF aerobic) → Aspergillus (3.0★ IF aerobic) → Xylanase (3.0★) → Phanerochaete (2.5★ conditional)
+
+**Lower priority:** P-Release (28% moderate fixation), N-Fixing (N2O RISK — avoid!), N-Trap (8% leaching already low), K-Retention (organic CEC high), Liming (peat = lime prohibited), Fe-Mgmt (no POS), Post-Lime (not applicable)
+
+**🚨 CRITICAL SAFETY:**
+- N-fixing organisms LOCKED until field trials confirm N2O safety
+- Azotobacter (2.0★), Azospirillum (2.0★) — PROHIBITED
+- Lactobacillus (4.2★) — SAFE alternative (CH4 suppression 70-80%)
+
+---
+
+## 🌱 SPODOSOL (rare — SANDY 85%, LOWEST CEC)
+
+**Soil characteristics:** pH 4.77, CEC 6 cmol/kg, P-fixation 18%, N-leaching 32% HIGHEST  
+**Strategy:** EPS producers for CEC/WHC boost + N-leaching combat
+
+### **PRIORITY OBJECTIVES FOR SPODOSOL:**
+
+1. ⭐⭐⭐ **N-TRAP** (CRITICAL — TOP PRIORITY!)
+   - Reason: N-leaching 32% (HIGHEST OF ALL SOILS) — sandy texture
+   - Top organisms: **Lactobacillus (4.5★ HIGHEST!)** → Saccharomyces (4.0★ NH3 retention) → Azotobacter (4.0★ EPS) → B. coagulans (3.8★) → Cellulomonas (3.5★)
+
+2. ⭐⭐ **K-RETENTION** (VERY HIGH PRIORITY)
+   - Reason: CEC 6 cmol/kg (LOWEST) + 30% K-leaching annually
+   - Top organisms: **B. mucilaginosus (4.5★ EPS → CEC 6→9)** → Azotobacter (4.0★ alginate EPS) → Xanthomonas (3.8★ EPS) → LAB (3.5★ biofilm)
+
+3. ⭐ **P-RELEASE** (HIGH PRIORITY)
+   - Reason: Spodic Bhs hardpan P-release critical
+   - Top organisms: Aspergillus (3.8★ Bhs targeted) → B. megaterium (4.0★) → Pseudomonas (3.5★) → Glomus (3.5★)
+
+4. **VALUE FOR MONEY** (MEDIUM PRIORITY)
+   - Reason: Cost optimization
+   - Top organisms: B. subtilis (0.016) → LAB (0.024) → Rhizopus (0.036) → Saccharomyces (0.073) → Azotobacter (0.100)
+
+5. **BSF-READY** (MEDIUM PRIORITY)
+   - Reason: Sandy texture requires EPS for substrate structure
+   - Top organisms: B. mucilaginosus (EPS WHC) → LAB (pH control) → Saccharomyces (C:N) → Azotobacter (N-trap)
+
+**Lower priority:** Lignin (moderate priority), N-Fixing (moderate), Liming (pH 4.77 moderate), Fe-Mgmt (no POS), Acid Tolerance (pH 4.77 moderate), N2O-Safe (aerobic), Post-Lime (not needed)
+
+---
+
+## 🌱 ANDISOL (rare — VOLCANIC, ALLOPHANE 30%, P-FIXATION 82% HIGHEST)
+
+**Soil characteristics:** pH 4.8, CEC 18 cmol/kg, P-fixation 82%, N-leaching 12%  
+**Strategy:** AMF bypass + Si amendment (CaSiO₃ 1.0 t/ha) synergy MANDATORY
+
+### **PRIORITY OBJECTIVES FOR ANDISOL:**
+
+1. ⭐⭐⭐ **P-RELEASE** (CRITICAL — TOP PRIORITY!)
+   - Reason: P-fixation 82% (HIGHEST OF ALL SOILS) — allophane 30%
+   - Top organisms: **Glomus mosseae (5.0★ ONLY PERFECT SCORE!)** → G. intraradices (4.8★ AMF bypass) → Aspergillus (4.7★ citric + Si synergy) → Acaulospora (4.5★) → B. megaterium (4.2★)
+   - 🚨 **MANDATORY:** CaSiO₃ 1.0 t/ha + citric acid synergy → P-fixation 82%→45%
+
+2. ⭐ **LIMING RESPONSE** (HIGH PRIORITY — BUT CONDITIONAL!)
+   - Reason: Si amendment (NOT lime) required
+   - Top organisms: B. megaterium (Si synergy) → Pseudomonas (siderophores + Si) → Aspergillus (citric + Si MANDATORY) → Trichoderma (MBC benefit)
+   - ⚠️ **AMF CONFLICT:** Glomus/Acaulospora — Liming PROHIBITED (kills colonization)
+
+3. ⭐ **ACID TOLERANCE** (HIGH PRIORITY)
+   - Reason: pH 4.8 (MODERATE acid stress)
+   - Top organisms: Acaulospora (acid-specialist) → Glomus mosseae (pH 4.5-6.5) → Aspergillus (4.7★) → LAB (pH 3.5-6.5)
+
+4. **VALUE FOR MONEY** (MEDIUM PRIORITY)
+   - Reason: Budget optimization
+   - Top organisms: LAB (0.022) → B. subtilis (0.023) → Rhizopus (0.036) → Saccharomyces (0.058) → Azotobacter (0.133)
+
+5. **BSF-READY** (MEDIUM PRIORITY)
+   - Reason: S3→S4 optimization
+   - Top organisms: LAB (pH control) → Saccharomyces (C:N) → Glomus (P bioavailability) → Aspergillus (citric)
+
+**Lower priority:** Lignin (moderate), N-Fixing (low — N-leaching already 12% LOW), N-Trap (12% leaching already low), K-Retention (CEC 18 adequate), Fe-Mgmt (no POS), N2O-Safe (aerobic), Post-Lime (Si not lime)
+
+**🚨 CRITICAL SAFETY:**
+- CaSiO₃ 1.0 t/ha MANDATORY (NOT CaCO₃ lime!)
+- AMF organisms (Glomus, Acaulospora) — Liming PROHIBITED
+- Aspergillus (4.7★) — Si synergy MANDATORY for 82%→45% fixation reduction
+
+---
+
+## 📊 RANKING OBJECTIVES MATRIX (PRIORITY BY SOIL)
+
+| Objective | Inceptisol | Ultisol | Oxisol | Histosol | Spodosol | Andisol |
+|-----------|-----------|---------|--------|----------|----------|---------|
+| **VALUE FOR MONEY** | ⭐ HIGH | ⭐ HIGH | MEDIUM | ⭐ HIGH | MEDIUM | MEDIUM |
+| **P-RELEASE** | MEDIUM | ⭐ HIGH | ⭐⭐⭐ CRITICAL | LOW | ⭐ HIGH | ⭐⭐⭐ CRITICAL |
+| **LIGNIN** | ⭐ HIGH | MEDIUM | MEDIUM | LOW | MEDIUM | MEDIUM |
+| **N-FIXING** | MEDIUM | MEDIUM | LOW | ❌ AVOID | MEDIUM | LOW |
+| **BSF-READY** | ⭐ HIGH | MEDIUM | LOW | MEDIUM | MEDIUM | MEDIUM |
+| **N-TRAP** | LOW | ⭐ HIGH | LOW | LOW | ⭐⭐⭐ CRITICAL | LOW |
+| **K-RETENTION** | LOW | LOW | LOW | LOW | ⭐⭐ HIGH | LOW |
+| **LIMING RESPONSE** | LOW | LOW | ⭐ HIGH | ❌ AVOID | LOW | CONDITIONAL |
+| **FE-MGMT** | LOW | LOW | LOW | LOW | LOW | LOW |
+| **ACID TOLERANCE** | LOW | LOW | ⭐ HIGH | ⭐ HIGH | LOW | ⭐ HIGH |
+| **N2O-SAFE** | LOW | LOW | LOW | ⭐⭐⭐ CRITICAL | LOW | LOW |
+| **SOIL-OPTIMIZED** | ⭐ HIGH | ⭐ HIGH | ⭐ HIGH | ⭐ HIGH | ⭐ HIGH | ⭐ HIGH |
+
+---
+
+## 🚀 UI IMPLEMENTATION GUIDE
+
+### **React component structure:**
+
+```javascript
+// State
+const [selectedSoil, setSelectedSoil] = useState('Inceptisol');
+const [selectedObjective, setSelectedObjective] = useState('value_for_money');
+const [organisms, setOrganisms] = useState([]);
+
+// Objective button click handler
+const handleObjectiveClick = async (objective) => {
+  setSelectedObjective(objective);
+  
+  const { data } = await supabase.rpc('rank_organisms_by_objective', {
+    p_soil_type: selectedSoil,
+    p_objective: objective,
+    p_limit: 10
+  });
+  
+  setOrganisms(data);
+};
+
+// Render buttons
+const objectives = [
+  { id: 'value_for_money', icon: '💰', label: 'Best Value' },
+  { id: 'p_release', icon: '🧪', label: 'P-Release' },
+  { id: 'lignin', icon: '🌾', label: 'Lignin' },
+  { id: 'n_fixing', icon: '🌱', label: 'N-Fixing' },
+  { id: 'bsf_ready', icon: '🐛', label: 'BSF-Ready' },
+  { id: 'n_trap', icon: '🪤', label: 'N-Trap' },
+  { id: 'k_leaching', icon: '⚡', label: 'K-Retain' },
+  { id: 'liming_response', icon: '🧂', label: 'Post-Lime' },
+  { id: 'iron_management', icon: '🧲', label: 'Fe-Mgmt' },
+  { id: 'acid_tolerance', icon: '🔋', label: 'Acid Tol' },
+  { id: 'n2o_safe', icon: '✅', label: 'N2O-Safe' },
+  { id: 'soil_specific', icon: '🎯', label: 'Optimized' }
+];
+```
+
+### **Priority highlighting per soil:**
+
+```javascript
+// Conditional styling based on soil + objective priority
+const getPriority = (soil, objective) => {
+  const priorities = {
+    'Inceptisol': ['value_for_money', 'lignin', 'bsf_ready'],
+    'Ultisol': ['p_release', 'value_for_money', 'n_trap'],
+    'Oxisol': ['p_release', 'liming_response', 'acid_tolerance'],
+    'Histosol': ['n2o_safe', 'acid_tolerance', 'value_for_money'],
+    'Spodosol': ['n_trap', 'k_leaching', 'p_release'],
+    'Andisol': ['p_release', 'liming_response', 'acid_tolerance']
+  };
+  
+  return priorities[soil]?.includes(objective) ? 'HIGH' : 'NORMAL';
+};
+
+// Button styling
+<button
+  className={`objective-btn ${getPriority(selectedSoil, obj.id) === 'HIGH' ? 'priority-high' : ''}`}
+  onClick={() => handleObjectiveClick(obj.id)}
+>
+  {obj.icon} {obj.label}
+</button>
+```
+
+---
+
+## ✅ DEPLOYMENT CHECKLIST
+
+**5/12 OPERATIONAL NOW:**
+- ✅ Value for Money
+- ✅ P-Release
+- ✅ Lignin
+- ✅ N-Fixing
+- ✅ BSF-Ready
+
+**7/12 TO BE ADDED (30 min each):**
+- ⏳ N-Trap (Spodosol CRITICAL)
+- ⏳ K-Retention (Spodosol CRITICAL)
+- ⏳ Liming Response (Oxisol HIGH)
+- ⏳ Iron Management (POS stream)
+- ⏳ Acid Tolerance (Histosol/Oxisol/Andisol HIGH)
+- ⏳ N2O-Safe (Histosol CRITICAL)
+- ⏳ Soil-Optimized (All soils HIGH)
+
+---
+
+END OF RANKING OBJECTIVES PER SOIL
+Ready for React UI deployment!
