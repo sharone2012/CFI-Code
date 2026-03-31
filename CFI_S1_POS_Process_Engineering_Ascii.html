@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§14.2 — POS S1A — Ascii Process Flow</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&family=Syne:wght@700&display=swap');
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: white;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.container {
+  width: 1280px;
+  margin: 0 auto;
+  border: 3px solid #111;
+  padding: 24px;
+  background: white;
+}
+
+.header {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  border-bottom: 2px solid #111;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  color: #185FA5;
+  margin-right: 8px;
+}
+
+.flow-section {
+  margin-bottom: 32px;
+}
+
+.node {
+  margin-bottom: 16px;
+}
+
+.node-header {
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+.node-body {
+  margin-left: 20px;
+  color: #333;
+}
+
+.stream-state {
+  color: #185FA5;
+  font-weight: 500;
+}
+
+.gate {
+  color: #cc2222;
+  font-weight: 500;
+}
+
+.legend {
+  margin-top: 32px;
+  padding: 16px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+
+.legend-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.legend-item {
+  margin-bottom: 4px;
+  color: #666;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header"><span class="section-num">§14.2</span> POS S1A — Ascii Process Flow</div>
+
+  <div class="flow-section">
+    <div class="node">
+      <div class="node-header">① PIT-POS-01 — Pos Reception Pit</div>
+      <div class="node-body">
+        IN: POS sludge from mill decanter discharge via truck<br>
+        <span class="stream-state">Stream: ~30 t/day fresh · 80–92% MC · decanted slurry</span><br>
+        Storage: 15 m³ at-grade RC concrete hopper<br>
+        Dimensions: L:3.5m W:2.5m H:2.0m · 60° sloped walls<br>
+        Material: RC concrete body + epoxy coating (oil-resistant)<br>
+        Lip: EL +0.8–1.0m above grade for truck discharge<br>
+        Drainage: 150mm bottom valve → POME pond · deep sump<br>
+        OUT: Pump suction → T-SLD-101 ②
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">② T-SLD-101 — Sludge Holding Tank</div>
+      <div class="node-body">
+        IN: POS from pit ① via pump<br>
+        <span class="stream-state">Stream: ~1.25 t/h average · 80–92% MC</span><br>
+        Storage: 5–8 m³ vertical SS304 tank · sealed dome top<br>
+        Agitator: 3.7 kW slow-speed paddle · VFD controlled<br>
+        Dwell: ~6–12hr homogenization before decanter<br>
+        Vent: Biofilter odor control (optional if complaints)<br>
+        Elevation: EL 0.0m ground level<br>
+        OUT: Controlled feed → PMP-POS-01 ③
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">③ PMP-POS-01 — Sludge Transfer Pump</div>
+      <div class="node-body">
+        IN: Homogenized sludge from T-SLD-101 ②<br>
+        <span class="stream-state">Stream: 1.5–2.5 m³/h variable · 80–92% MC</span><br>
+        Process: Progressive cavity pump · SS316L wetted parts<br>
+        Motor: 5.5 kW · 3-phase · VFD for flow control<br>
+        Head: 15m TDH (lifts to +2.5m platform)<br>
+        OUT: Discharge → DCN-POS-01 ④ at elevation +2.5m
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">④ DCN-POS-01 — Decanter Centrifuge</div>
+      <div class="node-body">
+        IN: Sludge from pump ③<br>
+        <span class="stream-state">Stream: 1.5 t/h · 82% MC (post-homogenization)</span><br>
+        Process: 3-phase decanter centrifuge · 11kW main motor + auxiliaries<br>
+        Platform: EL +2.5m vibration-isolated steel structure<br>
+        Manufacturer: Alfa Laval preferred for 3-phase performance<br>
+        Separation: Cake + water + residual oil phases<br>
+        Split: Cake (65% MC) → BUF-POS-01 ⑤<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Water + oil → POME pond<br>
+        <span class="stream-state">Cake Stream: ~0.55 t/h · 65% MC</span><br>
+        OUT: Cake → BUF-POS-01 ⑤ | Liquids → POME pond
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑤ BUF-POS-01 — S2 Buffer Bin</div>
+      <div class="node-body">
+        IN: Decanter cake from DCN-POS-01 ④<br>
+        <span class="stream-state">Stream: ~0.55 t/h · 65% MC · ~13.5 t/day</span><br>
+        Storage: 5 m³ steel bin · 8–12hr buffer<br>
+        Material: Carbon steel + epoxy · navy S2 marker<br>
+        <span class="gate">Gate: ICP-OES Fe result per CFI-LAB-POME-001 protocol</span><br>
+        &nbsp;&nbsp;&nbsp;Fe &lt;3,000 mg/kg DM → 20% WW blend rate<br>
+        &nbsp;&nbsp;&nbsp;Fe 3,000–5,000 → 10–15% blend<br>
+        &nbsp;&nbsp;&nbsp;Fe 5,000–8,000 → 5–10% + CaCO₃ amendment<br>
+        &nbsp;&nbsp;&nbsp;Fe &gt;8,000 → reject batch<br>
+        Status: S2 Feed Ready after Fe gate clearance<br>
+        OUT: To Stage 2 biological inoculation (blend ratio per Fe result)
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-title">Legend &amp; Key Specifications</div>
+    <div class="legend-item"><strong>MC =</strong> Moisture Content (wet basis %)</div>
+    <div class="legend-item"><strong>POS =</strong> Palm Oil Sludge (decanter discharge slurry) — NOT POME liquid effluent</div>
+    <div class="legend-item"><strong>TDH =</strong> Total Dynamic Head</div>
+    <div class="legend-item"><strong>ICP-OES Fe gate =</strong> Protocol CFI-LAB-POME-001 determines POS inclusion rate based on Fe concentration</div>
+    <div class="legend-item"><strong>PIT-POS-01 =</strong> At-grade hopper (not in-ground) · epoxy-coated RC concrete (not SS316L) · 60° sloped walls · 150mm bottom drain valve</div>
+    <div class="legend-item"><strong>T-SLD-101 =</strong> 5–8 m³ · SS304 · 3.7kW agitator · sealed dome · biofilter vent optional</div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§14.3 — EFB S1C — Ascii Process Flow</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&family=Syne:wght@700&display=swap');
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: white;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.container {
+  width: 1280px;
+  margin: 0 auto;
+  border: 3px solid #111;
+  padding: 24px;
+  background: white;
+}
+
+.header {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  border-bottom: 2px solid #111;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  color: #185FA5;
+  margin-right: 8px;
+}
+
+.flow-section {
+  margin-bottom: 32px;
+}
+
+.node {
+  margin-bottom: 16px;
+}
+
+.node-header {
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+.node-body {
+  margin-left: 20px;
+  color: #333;
+}
+
+.stream-state {
+  color: #185FA5;
+  font-weight: 500;
+}
+
+.parallel-note {
+  color: #9a6000;
+  font-style: italic;
+  margin-left: 20px;
+}
+
+.gate {
+  color: #cc2222;
+  font-weight: 500;
+}
+
+.legend {
+  margin-top: 32px;
+  padding: 16px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+
+.legend-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.legend-item {
+  margin-bottom: 4px;
+  color: #666;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header"><span class="section-num">§14.3</span> EFB S1C — Ascii Process Flow</div>
+
+  <div class="flow-section">
+    <div class="node">
+      <div class="node-header">① RCV-EFB-01 — EFB Receiving Hopper</div>
+      <div class="node-body">
+        IN: Whole EFB bunches from mill unloading<br>
+        <span class="stream-state">Stream: 20 t/h · 62.5% MC · bunches + loose fibers</span><br>
+        Storage: 50 m³ steel hopper · 60° walls · hydraulic gate<br>
+        OUT: Gravity feed → CVB-EFB-01 ②
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">② CVB-EFB-01 — Drag Chain Conveyor</div>
+      <div class="node-body">
+        IN: EFB from hopper ①<br>
+        <span class="stream-state">Stream: 20 t/h · 62.5% MC</span><br>
+        Transport: 12m × 600mm belt · 7.5kW motor · VFD controlled<br>
+        Elevation: +2.5m lift to shredder feed<br>
+        OUT: Discharge → ESD-01 ③
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">③ ESD-01 — Primary Shredder</div>
+      <div class="node-body">
+        IN: Whole bunches from conveyor ②<br>
+        <span class="stream-state">Stream: 20 t/h · 62.5% MC · bunches</span><br>
+        Process: Twin-shaft low-speed shredder · 2×37kW motors · 15–25 RPM<br>
+        Action: Reduce to ~100–150mm ribbons<br>
+        <span class="stream-state">OUT Stream: 20 t/h · 62.5% MC · ribbons</span><br>
+        OUT: → CVB-EFB-02 ④
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">④ CVB-EFB-02 — Incline Belt Conveyor</div>
+      <div class="node-body">
+        IN: Shredded ribbons from ESD-01 ③<br>
+        <span class="stream-state">Stream: 20 t/h · 62.5% MC · ribbons</span><br>
+        Transport: 8m × 600mm cleated belt · 5.5kW · 30° incline<br>
+        Elevation: +4.0m lift to buffer bin<br>
+        OUT: Top discharge → BIN-EFB-01 ⑤
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑤ BIN-EFB-01 — Buffer Bin</div>
+      <div class="node-body">
+        IN: Ribbons from incline ④<br>
+        <span class="stream-state">Stream: 20 t/h · 62.5% MC</span><br>
+        Storage: 50 m³ steel bin · conical bottom · 2.5hr capacity<br>
+        Discharge: VFD screw feeder to control downstream flow<br>
+        OUT: Gravity + screw → ELB-01 ⑥
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑥ ELB-01 — Lump Breaker</div>
+      <div class="node-body">
+        IN: Ribbons from buffer bin ⑤<br>
+        <span class="stream-state">Stream: 20 t/h · 62.5% MC · ribbons</span><br>
+        Process: Twin-roller lump breaker · 11kW · 30–50mm gap<br>
+        Action: Break ribbons to ~30–50mm fragments<br>
+        <span class="stream-state">OUT Stream: 20 t/h · 62.5% MC · fragments</span><br>
+        OUT: Chute → EHM-01 ⑦
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑦ EHM-01 — Hammer Mill</div>
+      <div class="node-body">
+        IN: Fragments from lump breaker ⑥ + oversize return from screen ⑧<br>
+        <span class="stream-state">Stream: 20 t/h primary + recycle · 62.5% MC</span><br>
+        Process: High-speed hammer mill · 37kW nameplate (24kW @ 65% Asian derate)<br>
+        Screen: 2.0mm perforated · rotor 600mm Ø · 1200–1500 RPM<br>
+        <span class="gate">Isolation: Spring mounts only — never rigid anchor</span><br>
+        Action: Reduce to D90 ≤2mm<br>
+        <span class="stream-state">OUT Stream: 20 t/h · 62.5% MC · D90 ≤2mm powder</span><br>
+        OUT: Screen undersize → ESC-01 ⑧<br>
+        <span class="gate">Oversize return: loops back to ⑦ hammer mill for re-milling</span>
+      </div>
+      <div class="parallel-note">
+        ║ Parallel Unit: EDC-01 Baghouse — duct-fed dust collection from ⑦<br>
+        ║ Not inline — runs parallel to main flow
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑧ ESC-01 — Vibrating Screen</div>
+      <div class="node-body">
+        IN: Hammer mill discharge ⑦<br>
+        <span class="stream-state">Stream: 20 t/h · 62.5% MC · mixed particle sizes</span><br>
+        Process: Linear vibrating screen · 2×1.5kW motors · 2.0mm mesh<br>
+        Split: Undersize (D90 ≤2mm) → EPR-01 ⑨<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oversize (&gt;2mm) → Return to EHM-01 ⑦ for re-milling<br>
+        <span class="stream-state">Undersize Stream: ~18 t/h · 62.5% MC · D90 ≤2mm</span><br>
+        OUT: Undersize → EPR-01 ⑨
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑨ EPR-01 — Screw Press</div>
+      <div class="node-body">
+        IN: Screen undersize from ESC-01 ⑧<br>
+        <span class="stream-state">Stream: ~18 t/h · 62.5% MC · D90 ≤2mm</span><br>
+        Process: Twin-screw dewatering press · 15kW · 0.5mm screen gap<br>
+        Action: Dewater 62.5% → 45–50% MC<br>
+        Split: Cake (solids) → BIN-EFB-301 ⑩<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filtrate (water) → POME pond<br>
+        <span class="gate">Gate B.G2: Press cake MC ≤50% before bin acceptance</span><br>
+        <span class="stream-state">Cake Stream: ~13 t/h · 45–50% MC · D90 ≤2mm</span><br>
+        OUT: Cake → BIN-EFB-301 ⑩ | Filtrate → POME pond
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑩ BIN-EFB-301 — S2 Buffer Bin</div>
+      <div class="node-body">
+        IN: Press cake from EPR-01 ⑨<br>
+        <span class="stream-state">Stream: ~13 t/h · 45–50% MC · D90 ≤2mm</span><br>
+        Storage: 50 m³ steel bin · 2.5hr buffer at S2 rate<br>
+        <span class="gate">Gate B.G2: MC ≤50% enforced</span><br>
+        Status: S2 Feed Ready — teal marker<br>
+        OUT: To Stage 2 biological inoculation
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-title">Legend &amp; Key Corrections</div>
+    <div class="legend-item"><strong>MC =</strong> Moisture Content (wet basis %)</div>
+    <div class="legend-item"><strong>D90 =</strong> 90th percentile particle diameter ≤2mm target</div>
+    <div class="legend-item"><strong>VFD =</strong> Variable Frequency Drive</div>
+    <div class="legend-item"><strong>Asian derate =</strong> 65% of nameplate capacity (EHM-01 runs 24kW not 37kW)</div>
+    <div class="legend-item"><strong>Gate B.G2 =</strong> Press cake MC ≤50% before BIN-EFB-301 acceptance</div>
+    <div class="legend-item"><strong>Oversize return =</strong> ESC-01 ⑧ screen rejects loop back to EHM-01 ⑦ for re-milling — NEVER to ELB-01 ⑥ or ESD-01 ③</div>
+    <div class="legend-item"><strong>EDC-01 Baghouse =</strong> Parallel unit duct-fed from EHM-01 ⑦ — NOT inline in main flow</div>
+    <div class="legend-item"><strong>Filtrate routing =</strong> All press water + wash water → POME pond ONLY — never to substrate</div>
+    <div class="legend-item"><strong>EHM-01 nameplate =</strong> 65% of nameplate · 37kW motor (not "65% of 23kW")</div>
+  </div>
+
+</div>
+
+</body>
+</html>
