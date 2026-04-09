@@ -3251,19 +3251,61 @@ class CFICalculator:
         ws.cell(row=r, column=5).number_format = '$#,##0'
         r += 2
 
+        # --- DEVELOPMENT & INSTALLATION MARKUPS ---
+        _style_section_row(ws, r, 3, "DEVELOPMENT & INSTALLATION MARKUPS")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+
+        # Equipment subtotal (everything above EXCEPT Process Building which has its own markups)
+        equip_sub_row = r
+        ws.cell(row=r, column=1, value="Equipment CAPEX Subtotal (excl. Process Building EPC)").font = Font(bold=True)
+        # Sum all equipment sections but subtract building rows
+        ws.cell(row=r, column=2).value = f'=IFERROR(SUM(B5:B{r-3})-SUM(B{bldg_start}:B{bldg_start+10}),0)'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        ws.cell(row=r, column=3, value="Base for PE/Fixer").font = Font(size=9, italic=True)
+        r += 1
+
+        # Process Engineer / Fixer @ 20% of equipment CAPEX (NOT on EPC)
+        pe_row = r
+        ws.cell(row=r, column=1, value="Process Engineer / Fixer @ 20% (on equipment, NOT on EPC)").font = FONT_NORMAL
+        ws.cell(row=r, column=1).border = THIN_BORDER
+        ws.cell(row=r, column=2).value = f'=IFERROR(B{equip_sub_row}*0.20,0)'
+        ws.cell(row=r, column=2).border = THIN_BORDER
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=3, value="Markup").font = FONT_NORMAL
+        ws.cell(row=r, column=3).border = THIN_BORDER
+        r += 1
+
+        # Local EPC @ 15%
+        epc_row = r
+        ws.cell(row=r, column=1, value="Local EPC @ 15%").font = FONT_NORMAL
+        ws.cell(row=r, column=1).border = THIN_BORDER
+        ws.cell(row=r, column=2).value = f'=IFERROR((B{equip_sub_row}+SUM(B{bldg_start}:B{bldg_start+10}))*0.15,0)'
+        ws.cell(row=r, column=2).border = THIN_BORDER
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=3, value="Markup").font = FONT_NORMAL
+        ws.cell(row=r, column=3).border = THIN_BORDER
+        r += 1
+
+        ws.cell(row=r, column=1, value="Markups Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{pe_row}:B{epc_row})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
         # --- TOTAL CAPEX ---
         _style_section_row(ws, r, 3, "TOTAL CAPEX SUMMARY")
         r += 1
         total_row = r
-        ws.cell(row=r, column=1, value="TOTAL CAPEX (ALL STAGES + GREENHOUSE + SITE WORKS)").font = Font(bold=True, size=12)
+        ws.cell(row=r, column=1, value="TOTAL CAPEX (all equipment + building + markups)").font = Font(bold=True, size=12)
         c = ws.cell(row=r, column=2)
         c.value = f'=IFERROR(SUM(B5:B{r-1}),0)'
-        _style_calc_cell(c)
-        c.font = Font(bold=True, size=12, color=COLORS["positive"])
-        c.number_format = '$#,##0'
-        ws.cell(row=total_row, column=1, value="TOTAL CAPEX").font = Font(bold=True, size=12)
-        c = ws.cell(row=total_row, column=2)
-        c.value = f'=IFERROR(SUM(B5:B{total_row-1}),0)'
         _style_calc_cell(c)
         c.font = Font(bold=True, size=12, color=COLORS["positive"])
         c.number_format = '$#,##0'
@@ -3284,6 +3326,7 @@ class CFICalculator:
             ("Energy / Utilities", '=IFERROR(S1_Preprocessing!B30,0)', "From Stage 1"),
             ("Labour (full staffing)", f'=E{staff_total_row}', f"67 staff — see staffing section row {staff_total_row}"),
             ("Maintenance (2% CAPEX/month)", f'=IFERROR(B{total_row}*0.02/12,0)', "Industry standard"),
+            ("Political Risk Insurance @ 2% p.a.", f'=IFERROR(B{total_row}*0.02/12,0)', "2% annual on total CAPEX, monthly provision"),
             ("Quality Control / Lab", 2000, "Monthly QC testing"),
             ("Transport / Logistics", 3000, "Product distribution"),
         ]
