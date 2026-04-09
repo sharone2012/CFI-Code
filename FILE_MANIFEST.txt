@@ -1,0 +1,17 @@
+./FILE_MANIFEST.txt
+./README.md
+./backend/api/CFI_AddOrganism_API.js
+./calculators/CFI_AG_Management_Calculator_v1.jsx
+./calculators/Value_Calculator.html
+./components/CFI_AddOrganismButton.jsx
+./docs/guides/CFI_AUTO_PROMPT_SETUP_GUIDE.txt
+./docs/guides/CFI_AddOrganism_INTEGRATION_GUIDE.txt
+./docs/guides/CFI_RANKING_OBJECTIVES_PER_SOIL.txt
+./docs/guides/CFI_S3_SOILs_design_UI_12_RANKING_OBJECTIVES.md
+./docs/prompts/CFI_MASTER_PROMPT_NEW_ORGANISM_v2.md
+./docs/specifications/S3_Soil_Objectives_With_Warnings.md
+./docs/status/CFI_COMPLETE_DEPLOYMENT_STACKS.txt
+./docs/status/CFI_SOIILS_for_investors_COMPLETION_SUMMARY_WITH_CANONICAL.txt
+./docs/status/CFI_SOILS_method_of_research_QUICK_BASELINE_COMPLETE.txt
+./docs/status/CFI_SOILS_tecnical_team_FINAL_STATUS_CANONICAL_VALUES.txt
+./docs/status/CFI_ULTISOL_GAP_ANALYSIS.txt

@@ -1,0 +1,250 @@
+CFI OPTIMIZED ORGANISM STACKS — ALL 6 SOILS
+============================================
+Date: March 26, 2026
+Ranking: VALUE-FOR-MONEY (cost-benefit optimized)
+Status: ✅ PRODUCTION-READY
+
+**THESE ARE YOUR READY-TO-USE ORGANISM LISTS FOR EACH SOIL TYPE**
+
+---
+
+## 📊 INCEPTISOL (39% Indonesian palms — MOST COMMON)
+
+**Top 10 organisms (value-for-money ranked):**
+
+| Rank | Organism | Score | Cost/t | Value | Key Benefit |
+|------|----------|-------|--------|-------|-------------|
+| 1 | **Rhizopus oligosporus** | generic | $0.18 | 16.1× | Phytase P-release + tempeh fermentation |
+| 2 | **Lactobacillus sp.** | 4.0★ | $0.11 | 12.3× | N-trap 7-15 kg/t + CH4 suppression 70-80% |
+| 3 | **Bacillus subtilis** | generic | $0.08 | 11.3× | Surfactin biosurfactant + clay aggregate |
+| 4 | **Saccharomyces cerevisiae** | generic | $0.29 | 7.0× | NH3 retention 50% + yeast protein 45-55% CP |
+| 5 | **Azotobacter vinelandii** | 4.0★ | $0.40 | 4.5× | N-fixation 15-25 kg/ha + alginate EPS CEC boost |
+| 6 | Bacillus coagulans | generic | $0.86 | 1.7× | Thermophilic LAB synergy |
+| 7 | **Trichoderma harzianum** | 4.5★ | $1.13 | 0.8× | Cellulase 85-95% pH 5.0 + Ganoderma biocontrol |
+| 8 | **Aspergillus niger** | 4.5★ | $2.50 | 0.7× | Citric acid P-release + cellulase dual benefit |
+| 9 | β-glucosidase (enzyme) | generic | $1.76 | 0.3× | Cellobiose hydrolysis |
+| 10 | Bacillus licheniformis | generic | $3.50 | 0.3× | Thermophilic protease |
+
+**STRATEGY:** Well-aerated Inceptisol (pH 5.0) is OPTIMAL for high-performance organisms. Maximize lignin degradation (Trichoderma, Aspergillus) and N-fixation (Azotobacter).
+
+**OPTIMAL STACK (9 organisms):**
+1. Rhizopus oligosporus
+2. Lactobacillus sp.
+3. Bacillus subtilis
+4. Saccharomyces cerevisiae
+5. Azotobacter vinelandii
+6. Trichoderma harzianum
+7. Aspergillus niger
+8. Glomus mosseae (add AMF for P-uptake)
+9. Trametes versicolor (add lignin specialist)
+
+---
+
+## 📊 ULTISOL (24% Indonesian palms)
+
+**Top 10 organisms (value-for-money ranked):**
+
+| Rank | Organism | Score | Cost/t | Value | Key Benefit |
+|------|----------|-------|--------|-------|-------------|
+| 1 | **Rhizopus oligosporus** | 4.0★ | $0.18 | 16.1× | Phytase kaolinite P-release mechanism |
+| 2 | **Lactobacillus sp.** | 4.5★ | $0.11 | 12.3× | pH 5.5-6.0 control + nitrification enable |
+| 3 | **Bacillus subtilis** | 3.5★ | $0.08 | 11.3× | Clay aggregate + erosion control |
+| 4 | **Saccharomyces cerevisiae** | 4.0★ | $0.29 | 7.0× | NH3 retention + N-trap synergy LAB |
+| 5 | Azotobacter vinelandii | generic | $0.40 | 4.5× | N-fixation (lower priority vs Inceptisol) |
+| 6 | Bacillus coagulans | generic | $0.86 | 1.7× | Thermophilic LAB |
+| 7 | **Trichoderma harzianum** | 4.0★ | $1.13 | 0.8× | Cellulase 65-75% pH 4.5 + mycoparasitism |
+| 8 | **Aspergillus niger** | 4.5★ | $2.50 | 0.7× | Citric acid chelates kaolinite Al³⁺-P |
+| 9 | β-glucosidase (enzyme) | generic | $1.76 | 0.3× | Cellobiose hydrolysis |
+| 10 | Bacillus licheniformis | generic | $3.50 | 0.3× | Thermophilic |
+
+**STRATEGY:** Ultisol pH 4.5 (TOO acidic for nitrification). LAB raises pH 4.5→5.5-6.0. Kaolinite clay = P-fixation 27%; citric acid organisms critical.
+
+**OPTIMAL STACK (9 organisms):**
+1. Rhizopus oligosporus
+2. Lactobacillus sp. (pH control CRITICAL)
+3. Bacillus subtilis
+4. Saccharomyces cerevisiae
+5. Trichoderma harzianum
+6. Aspergillus niger
+7. Glomus mosseae (AMF for P)
+8. Bacillus megaterium (gluconic acid P)
+9. Phanerochaete sp. (lignin 30-40%)
+
+---
+
+## 📊 OXISOL (8% Indonesian palms — EXTREME P-fixation 65%)
+
+**Top 10 organisms (value-for-money ranked):**
+
+| Rank | Organism | Score | Cost/t | Value | Key Benefit |
+|------|----------|-------|--------|-------|-------------|
+| 1 | Rhizopus oligosporus | generic | $0.18 | 16.1× | Phytase baseline |
+| 2 | Lactobacillus sp. | generic | $0.11 | 12.3× | Standard LAB benefit |
+| 3 | **Bacillus subtilis** | 3.5★ | $0.08 | 11.3× | Post-lime recovery + surfactin |
+| 4 | Saccharomyces cerevisiae | generic | $0.29 | 7.0× | NH3 retention |
+| 5 | Azotobacter vinelandii | generic | $0.40 | 4.5× | N-fixation baseline |
+| 6 | Bacillus coagulans | generic | $0.86 | 1.7× | Thermophilic LAB |
+| 7 | **Trichoderma harzianum** | 4.0★ | $1.13 | 0.8× | Cellulase 65-75% pH 4.5 (acid stress) |
+| 8 | **Aspergillus niger** | 4.8★ | $2.50 | 0.7× | 🏆 CRITICAL! Citric acid gibbsite/goethite P 45-67% |
+| 9 | β-glucosidase (enzyme) | generic | $1.76 | 0.3× | Cellobiose |
+| 10 | **Bacillus licheniformis** | 3.8★ | $3.50 | 0.3× | Survives lime heat spike |
+
+**STRATEGY:** Oxisol pH 4.4 (EXTREME acid) + gibbsite/goethite P-fixation 65% = CRITICAL need for extreme P-solubilisers. **Liming mandatory** (1.5 t/ha → pH 4.4→5.0).
+
+**OPTIMAL STACK (9 organisms):**
+1. **Aspergillus niger** (4.8★ — TOP PRIORITY citric acid!)
+2. **Acaulospora scrobiculata** (4.5★ — acid-specialist AMF)
+3. **Bacillus megaterium** (4.2★ — gluconic acid Fe/Al oxide)
+4. Lactobacillus sp.
+5. Bacillus subtilis (post-lime)
+6. **Nitrosomonas sp.** (3.5★ — POST-LIME ONLY for N-cycle)
+7. Trichoderma harzianum
+8. **Pseudomonas fluorescens** (4.0★ — 2-ketogluconic acid)
+9. Rhizopus oligosporus
+
+**⚠️ CRITICAL:** Nitrosomonas NEVER pre-lime (suppressed pH <4.5)!
+
+---
+
+## 📊 HISTOSOL / PEAT (7% Indonesian palms — waterlogged, N2O risk)
+
+**Top 10 organisms (value-for-money ranked):**
+
+| Rank | Organism | Score | Cost/t | Value | Key Benefit |
+|------|----------|-------|--------|-------|-------------|
+| 1 | Rhizopus oligosporus | generic | $0.18 | 16.1× | Baseline (aerobic zones only) |
+| 2 | **Lactobacillus sp.** | 4.2★ | $0.11 | 12.3× | 🏆 CH4 suppression 70-80% + NO N2O risk! |
+| 3 | **Bacillus subtilis** | 3.8★ | $0.08 | 11.3× | Aerobic zone pioneer (CFI PRIMARY VALUE) |
+| 4 | **Saccharomyces cerevisiae** | 3.8★ | $0.29 | 7.0× | Anaerobic-compatible + NH3 retention |
+| 5 | **Azotobacter vinelandii** | 2.0★ | $0.40 | 4.5× | ⚠️ N2O RISK 5→15+ kg/ha — LOCKED! |
+| 6 | Bacillus coagulans | generic | $0.86 | 1.7× | Thermophilic |
+| 7 | **Trichoderma harzianum** | 3.5★ | $1.13 | 0.8× | IF aerobic zones exist (pH 3.8 stress) |
+| 8 | **Aspergillus niger** | 3.0★ | $2.50 | 0.7× | Conditional (aerobic zones only) |
+| 9 | β-glucosidase (enzyme) | generic | $1.76 | 0.3× | Cellobiose |
+| 10 | Bacillus licheniformis | generic | $3.50 | 0.3× | Thermophilic |
+
+**STRATEGY:** Waterlogged peat (pH 3.8, WT 40-60cm) = anaerobic stress. CFI creates aerobic zones in S0-S3 = PRIMARY VALUE PROPOSITION. **N2O RISK:** Azotobacter/Azospirillum LOCKED until field trials confirm safety.
+
+**OPTIMAL STACK (9 organisms — N2O SAFE):**
+1. **Lactobacillus sp.** (4.2★ — CH4 benefit, NO N2O!)
+2. **Cellulomonas fimi** (4.0★ — facultative anaerobe)
+3. **Bacillus subtilis** (3.8★ — aerobic zone creator)
+4. **Saccharomyces cerevisiae** (3.8★ — anaerobic-compatible)
+5. **Acaulospora sp.** (3.0★ — waterlogging-tolerant AMF)
+6. Trichoderma harzianum (IF aerobic)
+7. Aspergillus niger (IF aerobic)
+8. Rhizopus oligosporus (aerobic zones)
+9. Bacillus coagulans
+
+**🚨 PROHIBITED:** Azotobacter vinelandii, Azospirillum brasilense (N2O risk)
+
+---
+
+## 📊 SPODOSOL (rare — sandy 85%, CEC 6 cmol/kg LOWEST)
+
+**Top 10 organisms (value-for-money ranked):**
+
+| Rank | Organism | Score | Cost/t | Value | Key Benefit |
+|------|----------|-------|--------|-------|-------------|
+| 1 | Rhizopus oligosporus | generic | $0.18 | 16.1× | Phytase baseline |
+| 2 | **Lactobacillus sp.** | 4.5★ | $0.11 | 12.3× | 🏆 N-leaching combat (32% HIGHEST)! |
+| 3 | Bacillus subtilis | generic | $0.08 | 11.3× | Standard benefit |
+| 4 | **Saccharomyces cerevisiae** | 4.0★ | $0.29 | 7.0× | N+K retention synergy LAB |
+| 5 | **Azotobacter vinelandii** | 4.0★ | $0.40 | 4.5× | Alginate EPS → WHC 58→75mm |
+| 6 | Bacillus coagulans | generic | $0.86 | 1.7× | Thermophilic LAB |
+| 7 | **Trichoderma harzianum** | 3.5★ | $1.13 | 0.8× | Reduced (sandy soil nutrient-poor) |
+| 8 | **Aspergillus niger** | 3.8★ | $2.50 | 0.7× | Spodic Bhs hardpan P-release |
+| 9 | β-glucosidase (enzyme) | generic | $1.76 | 0.3× | Cellobiose |
+| 10 | Bacillus licheniformis | generic | $3.50 | 0.3× | Thermophilic |
+
+**STRATEGY:** Sandy quartz soil (CEC 6 cmol/kg LOWEST) + N-leaching 32% (HIGHEST) = EPS producers CRITICAL for CEC/WHC boost.
+
+**OPTIMAL STACK (9 organisms — EPS focus):**
+1. **Bacillus mucilaginosus** (4.5★ — EPS → CEC 6→9+ cmol/kg!)
+2. **Lactobacillus sp.** (4.5★ — N-leaching combat)
+3. **Azotobacter vinelandii** (4.0★ — alginate EPS WHC)
+4. **Saccharomyces cerevisiae** (4.0★ — N+K retention)
+5. **Aspergillus niger** (3.8★ — spodic Bhs P)
+6. **Bacillus megaterium** (3.5★ — gluconic acid hardpan P)
+7. Rhizopus oligosporus
+8. Trichoderma harzianum
+9. Glomus mosseae (AMF moderate)
+
+---
+
+## 📊 ANDISOL (rare — volcanic, allophane 30%, P-fixation 82% HIGHEST)
+
+**Top 10 organisms (value-for-money ranked):**
+
+| Rank | Organism | Score | Cost/t | Value | Key Benefit |
+|------|----------|-------|--------|-------|-------------|
+| 1 | Rhizopus oligosporus | generic | $0.18 | 16.1× | Baseline |
+| 2 | Lactobacillus sp. | generic | $0.11 | 12.3× | Standard LAB |
+| 3 | **Bacillus subtilis** | 3.5★ | $0.08 | 11.3× | Volcanic ash stabilization |
+| 4 | Saccharomyces cerevisiae | generic | $0.29 | 7.0× | NH3 retention |
+| 5 | **Azotobacter vinelandii** | 3.0★ | $0.40 | 4.5× | Low priority (N-leaching only 12%) |
+| 6 | Bacillus coagulans | generic | $0.86 | 1.7× | Thermophilic LAB |
+| 7 | **Trichoderma harzianum** | 3.8★ | $1.13 | 0.8× | High MBC (580 mg/kg) supports enzyme |
+| 8 | **Aspergillus niger** | 4.7★ | $2.50 | 0.7× | Citric + Si synergy → 82%→45% fixation! |
+| 9 | β-glucosidase (enzyme) | generic | $1.76 | 0.3× | Cellobiose |
+| 10 | Bacillus licheniformis | generic | $3.50 | 0.3× | Thermophilic |
+
+**STRATEGY:** Allophane P-fixation 82% (HIGHEST of all soils!) = AMF bypass mechanism CRITICAL. **Si amendment mandatory** (CaSiO3 1.0 t/ha synergy).
+
+**OPTIMAL STACK (9 organisms — AMF bypass focus):**
+1. **Glomus mosseae** (5.0★ — 🏆 ONLY perfect score! AMF bypass allophane)
+2. **Glomus intraradices** (4.8★ — colonization 25%→55%)
+3. **Aspergillus niger** (4.7★ — citric + Si synergy MANDATORY)
+4. **Bacillus megaterium** (4.2★ — gluconic + Si synergy)
+5. **Pseudomonas fluorescens** (4.0★ — organic acids + Si)
+6. **Acaulospora sp.** (4.0★ — AMF diversity)
+7. Trichoderma harzianum (high MBC benefit)
+8. Bacillus subtilis
+9. Lactobacillus sp.
+
+**✅ MANDATORY:** Si amendment (CaSiO3 1.0 t/ha) for Aspergillus/Bacillus/Pseudomonas synergy
+
+---
+
+## 📋 DEPLOYMENT NOTES:
+
+### **Economic Tiers:**
+
+**1-WAVE (cheapest — immediate deployment):**
+- Rhizopus oligosporus ($0.18/t)
+- Lactobacillus sp. ($0.11/t)
+- Bacillus subtilis ($0.08/t)
+- **Total cost: $0.37/t FW**
+
+**2-WAVE (add mid-tier):**
+- + Saccharomyces cerevisiae ($0.29/t)
+- + Azotobacter vinelandii ($0.40/t)
+- + Bacillus coagulans ($0.86/t)
+- **Total cost: $1.92/t FW**
+
+**3-WAVE (premium — full stack):**
+- + Trichoderma harzianum ($1.13/t)
+- + Aspergillus niger ($2.50/t)
+- + AMF/specialty organisms
+- **Total cost: $5.55+/t FW**
+
+### **Safety Gates:**
+
+| Soil | Prohibited | Constraint | Mandatory |
+|------|-----------|------------|-----------|
+| **Histosol** | Azotobacter, Azospirillum | N2O RISK | LAB for CH4 suppression |
+| **Oxisol** | Nitrosomonas (pre-lime) | Post-lime ONLY | Liming 1.5 t/ha |
+| **Oxisol** | AMF + liming | Liming kills AMF | Use Acaulospora (no lime) |
+| **Andisol** | N/A | Si synergy | CaSiO3 1.0 t/ha |
+
+---
+
+## ✅ THESE STACKS ARE PRODUCTION-READY!
+
+Deploy immediately or customize based on:
+- Budget constraints (use 1-wave/2-wave tiers)
+- Site-specific soil test results
+- Regulatory approvals (SNI 2803:2012)
+- Seasonal factors (rain/dry)
+
+**All organisms approved by Sharon March 26, 2026**

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§14.4 — OPDC S1B — Ascii Process Flow</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&family=Syne:wght@700&display=swap');
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: white;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.container {
+  width: 1280px;
+  margin: 0 auto;
+  border: 3px solid #111;
+  padding: 24px;
+  background: white;
+}
+
+.header {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  border-bottom: 2px solid #111;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  color: #185FA5;
+  margin-right: 8px;
+}
+
+.flow-section {
+  margin-bottom: 32px;
+}
+
+.node {
+  margin-bottom: 16px;
+}
+
+.node-header {
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+.node-body {
+  margin-left: 20px;
+  color: #333;
+}
+
+.stream-state {
+  color: #185FA5;
+  font-weight: 500;
+}
+
+.parallel-note {
+  color: #9a6000;
+  font-style: italic;
+  margin-left: 20px;
+}
+
+.gate {
+  color: #cc2222;
+  font-weight: 500;
+}
+
+.legend {
+  margin-top: 32px;
+  padding: 16px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+
+.legend-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.legend-item {
+  margin-bottom: 4px;
+  color: #666;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header"><span class="section-num">§14.4</span> OPDC S1B — Ascii Process Flow</div>
+
+  <div class="flow-section">
+    <div class="node">
+      <div class="node-header">① RCV-OPDC-01 — OPDC Receiving Hopper</div>
+      <div class="node-body">
+        IN: OPDC from mill 3-phase decanter discharge<br>
+        <span class="stream-state">Stream: 5 t/h · 70–75% MC · decanter cake</span><br>
+        Storage: 20 m³ steel hopper · 60° walls · hydraulic gate<br>
+        OUT: Gravity feed → CVB-OPDC-01 ②
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">② CVB-OPDC-01 — Drag Chain Conveyor</div>
+      <div class="node-body">
+        IN: OPDC from hopper ①<br>
+        <span class="stream-state">Stream: 5 t/h · 70–75% MC</span><br>
+        Transport: 10m × 500mm belt · 5.5kW motor · VFD controlled<br>
+        Elevation: +2.5m lift to shredder feed<br>
+        OUT: Discharge → OSD-01 ③
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">③ OSD-01 — Primary Shredder</div>
+      <div class="node-body">
+        IN: OPDC cake from conveyor ②<br>
+        <span class="stream-state">Stream: 5 t/h · 70–75% MC · cake lumps</span><br>
+        Process: Twin-shaft low-speed shredder · 2×22kW motors · 15–25 RPM<br>
+        Action: Reduce to ~80–120mm fragments<br>
+        <span class="stream-state">OUT Stream: 5 t/h · 70–75% MC · fragments</span><br>
+        OUT: → CVB-OPDC-02 ④
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">④ CVB-OPDC-02 — Incline Belt Conveyor</div>
+      <div class="node-body">
+        IN: Shredded fragments from OSD-01 ③<br>
+        <span class="stream-state">Stream: 5 t/h · 70–75% MC · fragments</span><br>
+        Transport: 7m × 500mm cleated belt · 4kW · 30° incline<br>
+        Elevation: +3.5m lift to buffer bin<br>
+        OUT: Top discharge → BIN-OPDC-01 ⑤
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑤ BIN-OPDC-01 — Buffer Bin</div>
+      <div class="node-body">
+        IN: Fragments from incline ④<br>
+        <span class="stream-state">Stream: 5 t/h · 70–75% MC</span><br>
+        Storage: 20 m³ steel bin · conical bottom · 4hr capacity<br>
+        Discharge: VFD screw feeder to control downstream flow<br>
+        OUT: Gravity + screw → OLB-01 ⑥
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑥ OLB-01 — Lump Breaker</div>
+      <div class="node-body">
+        IN: Fragments from buffer bin ⑤<br>
+        <span class="stream-state">Stream: 5 t/h · 70–75% MC · fragments</span><br>
+        Process: Twin-roller lump breaker · 7.5kW · 25–40mm gap<br>
+        Action: Break fragments to ~25–40mm pieces<br>
+        <span class="stream-state">OUT Stream: 5 t/h · 70–75% MC · smaller pieces</span><br>
+        OUT: Chute → OHM-01 ⑦
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑦ OHM-01 — Hammer Mill</div>
+      <div class="node-body">
+        IN: Pieces from lump breaker ⑥ + oversize return from screen ⑧<br>
+        <span class="stream-state">Stream: 5 t/h primary + recycle · 70–75% MC</span><br>
+        Process: High-speed hammer mill · 22kW nameplate (14kW @ 65% Asian derate)<br>
+        Screen: 2.0mm perforated · rotor 500mm Ø · 1200–1500 RPM<br>
+        <span class="gate">Isolation: Spring mounts only — never rigid anchor</span><br>
+        Action: Reduce to D90 ≤2mm<br>
+        <span class="stream-state">OUT Stream: 5 t/h · 70–75% MC · D90 ≤2mm powder</span><br>
+        OUT: Screen undersize → OSC-01 ⑧<br>
+        <span class="gate">Oversize return: loops back to ⑦ hammer mill for re-milling</span>
+      </div>
+      <div class="parallel-note">
+        ║ Parallel Unit: ODC-01 Baghouse — duct-fed dust collection from ⑦<br>
+        ║ Not inline — runs parallel to main flow
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑧ OSC-01 — Vibrating Screen</div>
+      <div class="node-body">
+        IN: Hammer mill discharge ⑦<br>
+        <span class="stream-state">Stream: 5 t/h · 70–75% MC · mixed particle sizes</span><br>
+        Process: Linear vibrating screen · 2×1.1kW motors · 2.0mm mesh<br>
+        Split: Undersize (D90 ≤2mm) → OPR-01 ⑨<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oversize (&gt;2mm) → Return to OHM-01 ⑦ for re-milling<br>
+        <span class="stream-state">Undersize Stream: ~4.5 t/h · 70–75% MC · D90 ≤2mm</span><br>
+        OUT: Undersize → OPR-01 ⑨
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑨ OPR-01 — Screw Press</div>
+      <div class="node-body">
+        IN: Screen undersize from OSC-01 ⑧<br>
+        <span class="stream-state">Stream: ~4.5 t/h · 70–75% MC · D90 ≤2mm</span><br>
+        Process: Twin-screw dewatering press · 11kW<br>
+        Action: Dewater 70–75% → 60–62% MC<br>
+        <span class="gate">Gate C.G1 Class A: Press floor MC ≥40% — Math.max(40, reading) enforced</span><br>
+        Split: Cake (solids) → BIN-OPDC-301 ⑩<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filtrate (water) → POME pond<br>
+        <span class="stream-state">Cake Stream: ~3.5 t/h · 60–62% MC · D90 ≤2mm</span><br>
+        OUT: Cake → BIN-OPDC-301 ⑩ | Filtrate → POME pond
+      </div>
+    </div>
+
+    <div class="node">
+      <div class="node-header">⑩ BIN-OPDC-301 — S2 Buffer Bin</div>
+      <div class="node-body">
+        IN: Press cake from OPR-01 ⑨<br>
+        <span class="stream-state">Stream: ~3.5 t/h · 60–62% MC · D90 ≤2mm</span><br>
+        Storage: 15 m³ concrete or carbon steel bin (6–10 t @ 45–55% MC)<br>
+        <span class="gate">Gate C.G1: MC ≥40% Class A floor enforced</span><br>
+        <span class="gate">Gate C.G2/G3: pH 8.0–9.0 + dwell ≥24hrs before S2 transfer</span><br>
+        Status: S2 Feed Ready after pH neutralisation — amber marker<br>
+        OUT: To Stage 2 biological inoculation
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-title">Legend &amp; Key Corrections</div>
+    <div class="legend-item"><strong>MC =</strong> Moisture Content (wet basis %)</div>
+    <div class="legend-item"><strong>D90 =</strong> 90th percentile particle diameter ≤2mm target</div>
+    <div class="legend-item"><strong>VFD =</strong> Variable Frequency Drive</div>
+    <div class="legend-item"><strong>Asian derate =</strong> 65% of nameplate capacity (OHM-01 runs 14kW not 22kW)</div>
+    <div class="legend-item"><strong>Gate C.G1 Class A =</strong> Press floor MC ≥40% — Math.max(40, reading) hardcoded enforcement to prevent BSF pore damage</div>
+    <div class="legend-item"><strong>Gate C.G2/G3 =</strong> pH 8.0–9.0 + dwell ≥24hrs before S2 transfer</div>
+    <div class="legend-item"><strong>Oversize return =</strong> OSC-01 ⑧ screen rejects loop back to OHM-01 ⑦ for re-milling — NEVER to OLB-01 ⑥ or OSD-01 ③</div>
+    <div class="legend-item"><strong>ODC-01 Baghouse =</strong> Parallel unit duct-fed from OHM-01 ⑦ — NOT inline in main flow</div>
+    <div class="legend-item"><strong>Filtrate routing =</strong> All press water + wash water → POME pond ONLY — never to substrate</div>
+    <div class="legend-item"><strong>BIN-OPDC-301 material =</strong> Concrete or carbon steel (not stainless steel)</div>
+    <div class="legend-item"><strong>Oversize legend =</strong> Oversize returns back into OHM-01 ⑦ for re-milling (not back to lump breaker)</div>
+  </div>
+
+</div>
+
+</body>
+</html>
