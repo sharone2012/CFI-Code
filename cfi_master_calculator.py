@@ -645,8 +645,9 @@ ELECTRICAL_PANELS = {
     "ELEC-08 — Compressed Air System (2x15kW screw compressors + ring main)": 22000,
     "ELEC-09 — CCTV System (8 cameras 1080p, 30-day NVR)": 9500,
     "ELEC-10 — Instrumentation (3 weighbridges + moisture sensors)": 18000,
+    "GH-ELEC — Greenhouse Internal Electrical (SCADA, sensors, zone controls) est.": 55000,
 }
-ELECTRICAL_PANELS_TOTAL_MID_USD = 227500  # CAPEX v4.1 confirmed
+ELECTRICAL_PANELS_TOTAL_MID_USD = 282500  # CAPEX v4.1 confirmed + GH-ELEC estimated
 
 # ═══════════════════════════════════════════════════════════════
 # FIRE PROTECTION — items NOT in A8 (CAPEX v4.1 DATA GAP — RFQ required)
@@ -654,11 +655,11 @@ ELECTRICAL_PANELS_TOTAL_MID_USD = 227500  # CAPEX v4.1 confirmed
 # are already included in PROCESS_BUILDING_CAPEX above
 # ═══════════════════════════════════════════════════════════════
 FIRE_PROTECTION_ADDITIONAL = {
-    "FIRE-HYDRANT-01 — Fire Hydrant Network (100mm mains, 16 bar) DATA GAP RFQ": 20000,
-    "FIRE-ALARM-01 — Fire Alarm System (detectors, panel, sirens) DATA GAP": 12000,
-    "FIRE-SUPPRESS-01 — Building Fire Suppression S1 (sprinkler/CO2) DATA GAP": 35000,
+    "FIRE-HYDRANT-01 — Fire Hydrant Network (100mm mains, 16 bar) est.": 20000,
+    "FIRE-ALARM-01 — Fire Alarm System (detectors, panel, sirens) est.": 12000,
+    "FIRE-SUPPRESS-01 — Building Fire Suppression S1 (sprinkler/CO2) est.": 35000,
 }
-FIRE_PROTECTION_ADDITIONAL_TOTAL_MID_USD = 67000  # DATA GAP — contractor RFQ needed
+FIRE_PROTECTION_ADDITIONAL_TOTAL_MID_USD = 67000  # estimated — refine with contractor RFQ
 
 # ═══════════════════════════════════════════════════════════════
 # 20,000 SQM GREENHOUSE + IoT + AUTOMATION (BSF REARING FACILITY)
@@ -3085,7 +3086,7 @@ class CFICalculator:
         r += 2
 
         # --- ELECTRICAL PANELS & CONTROLS ---
-        _style_section_row(ws, r, 3, "ELECTRICAL PANELS & CONTROLS (10 items, $227,500 — CAPEX v4.1)")
+        _style_section_row(ws, r, 3, "ELECTRICAL PANELS & CONTROLS (11 items, $282,500 — CAPEX v4.1 + GH est.)")
         r += 1
         _style_header_row(ws, r, 3)
         for ci, h in enumerate(headers, 1):
@@ -3107,7 +3108,7 @@ class CFICalculator:
         r += 2
 
         # --- FIRE PROTECTION (items NOT in A8 — DATA GAP, RFQ required) ---
-        _style_section_row(ws, r, 3, "FIRE PROTECTION — ADDITIONAL (NOT in A8, DATA GAP — RFQ required)")
+        _style_section_row(ws, r, 3, "FIRE PROTECTION — ADDITIONAL (NOT in A8, estimated)")
         r += 1
         _style_header_row(ws, r, 3)
         for ci, h in enumerate(headers, 1):
@@ -3119,8 +3120,7 @@ class CFICalculator:
             ws.cell(row=r, column=1).border = THIN_BORDER
             ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
             ws.cell(row=r, column=2).number_format = '$#,##0'
-            ws.cell(row=r, column=2).fill = PatternFill(start_color="FFCCCC", end_color="FFCCCC", fill_type="solid")
-            ws.cell(row=r, column=3, value="Fire/DATA GAP").font = FONT_NORMAL
+            ws.cell(row=r, column=3, value="Fire/Est.").font = FONT_NORMAL
             ws.cell(row=r, column=3).border = THIN_BORDER
             r += 1
         ws.cell(row=r, column=1, value="Fire Protection Additional Subtotal").font = Font(bold=True)
