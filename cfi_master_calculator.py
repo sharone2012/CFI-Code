@@ -107,13 +107,15 @@ LAB_PARAMS = [
 
 # Canonical lab data — verified values; DATA_GAP where unknown
 RESIDUE_LAB_DATA = {
+    # CLASS A CANONICAL — locked Mar 2026
     "EFB": {
         "DM%": 37.5, "Moisture%": 62.5, "pH": 6.5,
-        "N%": 0.85, "P%": 0.34, "K%": 2.20, "Ca%": 0.20, "Mg%": 0.21,
+        "N%": 0.76, "P%": 0.06, "K%": 2.00, "Ca%": 0.20, "Mg%": 0.21,
         "S%": 0.12, "Fe_ppm": 1200, "Zn_ppm": 25, "Cu_ppm": 8,
         "Mn_ppm": 50, "B_ppm": 12,
         "OM%": 95.0, "Ash%": 5.0, "Lignin%": 22.0, "Cellulose%": 35.0,
         "C_N_ratio": 60.0,
+        "ADL%": 22.0, "NDF%": 82.0, "ADF%": 62.8,
     },
     "OPDC": {
         "DM%": 30.0, "Moisture%": 70.0, "pH": 6.8,
@@ -122,6 +124,15 @@ RESIDUE_LAB_DATA = {
         "Mn_ppm": 80, "B_ppm": 8,
         "OM%": 83.5, "Ash%": 16.5, "Lignin%": 30.7, "Cellulose%": 22.0,
         "C_N_ratio": 20.0,
+    },
+    # POS (Palm Oil Sludge) — from S14 Process Engineering
+    "POS": {
+        "DM%": 15.0, "Moisture%": 85.0, "pH": 4.5,
+        "N%": 2.80, "P%": 1.50, "K%": 0.50, "Ca%": 1.20, "Mg%": 0.35,
+        "S%": None, "Fe_ppm": None, "Zn_ppm": None, "Cu_ppm": None,
+        "Mn_ppm": None, "B_ppm": None,
+        "OM%": 70.0, "Ash%": 30.0, "Lignin%": 5.0, "Cellulose%": 8.0,
+        "C_N_ratio": 10.0,
     },
     "PKSA": {
         "DM%": 98.0, "Moisture%": 2.0, "pH": 11.2,
@@ -192,11 +203,22 @@ RESIDUE_LAB_DATA = {
 RESIDUE_NAMES = list(RESIDUE_LAB_DATA.keys())
 
 # Waste stream yields (% of FFB by wet weight)
+# OPDC yield: 15.2% of EFB FW = 4.2% FFB (CLASS A LOCKED)
 WASTE_YIELDS = {
-    "EFB": 0.23, "OPDC": 0.05, "PKSA": 0.008,
+    "EFB": 0.23, "OPDC": 0.042, "POS": 0.025, "PKSA": 0.008,
     "PMF": 0.13, "POME": 0.67, "PKS": 0.055,
     "PPF": 0.0, "Trunk": 0.0, "Frond": 0.0, "Sludge": 0.0,
 }
+
+# OPDC yield canonical: 15.2% of EFB FW
+OPDC_YIELD_PCT_OF_EFB_FW = 15.2
+OPDC_MC_FLOOR = 40  # % wb minimum — BSF pore damage below 40%
+ASIAN_EQUIPMENT_DERATE = 0.65  # 65% of nameplate capacity
+N_CONVERSION_FACTOR = 6.25  # AOAC 984.13 Jones factor
+PKE_N_VALUE = 26.7  # kg N/t DM (LOCKED Mar 2026)
+
+# Daily NPK from 3-stream combined at 60 TPH (CANONICAL)
+DAILY_NPK_3STREAM = {"N_kg_day": 582, "P_kg_day": 197, "K_kg_day": 930}
 
 
 # Chemical library — verified costs and effects
@@ -323,30 +345,43 @@ SOIL_TYPES = {
     "Inceptisols": {
         "coverage_pct": 39, "pH": 4.1, "CEC": 15.4, "base_sat_pct": 45,
         "N_g_kg": 2.7, "P_mg_kg": 124, "K_cmol_kg": 0.25,
-        "notes": "Best fertility, standard reference",
+        "notes": "Best fertility, standard reference. Phanerochaete 4.8 star top performer.",
         "n_reduction_pct": 40, "p_reduction_pct": 50,
         "yield_factor": 1.0,
+        "n_leach_pct": 35, "p_fix_pct": 30, "k_leach_pct": 20,
+        "micronutrients": {"B_low": 0.20, "B_high": 0.50, "Zn_low": 1.00, "Zn_high": 2.50,
+                           "Cu_low": 0.50, "Cu_high": 1.50},
     },
     "Ultisols": {
         "coverage_pct": 24, "pH": 4.5, "CEC": 8.2, "base_sat_pct": 22,
         "N_g_kg": 1.8, "P_mg_kg": 65, "K_cmol_kg": 0.15,
-        "notes": "Standard NPK baseline for fertiliser calcs",
+        "notes": "Standard NPK baseline. Aspergillus 4.5 star top performer.",
         "n_reduction_pct": 0, "p_reduction_pct": 0,
         "yield_factor": 1.0,
+        "n_leach_pct": 47, "p_fix_pct": 52, "k_leach_pct": 18,
+        "micronutrients": {"B_low": 0.15, "B_high": 0.40, "Zn_low": 0.80, "Zn_high": 2.00,
+                           "Cu_low": 0.60, "Cu_high": 1.80},
     },
     "Oxisols": {
         "coverage_pct": 8, "pH": 4.4, "CEC": 5.5, "base_sat_pct": 15,
         "N_g_kg": 1.5, "P_mg_kg": 40, "K_cmol_kg": 0.10,
-        "notes": "Fe/Al oxide-dominant, low CEC, high P fixation",
+        "notes": "Fe/Al oxide-dominant, P-fixation 65%. Aspergillus 4.8 star top.",
         "n_reduction_pct": 0, "p_reduction_pct": 0,
         "yield_factor": 0.85,
+        "n_leach_pct": 42, "p_fix_pct": 71, "k_leach_pct": 15,
+        "micronutrients": {"B_low": 0.10, "B_high": 0.30, "Zn_low": 0.50, "Zn_high": 1.20,
+                           "Cu_low": 0.80, "Cu_high": 2.50},
     },
     "Histosols": {
         "coverage_pct": 7, "pH": 3.8, "CEC": 45.0, "base_sat_pct": 10,
         "N_g_kg": 15.0, "P_mg_kg": 200, "K_cmol_kg": 0.08,
-        "notes": "Peat/organic, C=24.5%, very high OM",
+        "notes": "Peat/organic, C=24.5%. CRITICAL Cu/Zn deficiency. Lactobacillus 4.2 star top.",
         "n_reduction_pct": 80, "p_reduction_pct": 70,
         "yield_factor": 0.90,
+        "n_leach_pct": 32, "p_fix_pct": 12, "k_leach_pct": 25,
+        "micronutrients": {"B_low": 0.05, "B_high": 0.20, "Zn_low": 0.30, "Zn_high": 0.80,
+                           "Cu_low": 0.20, "Cu_high": 0.60},
+        "mandatory_amendments": ["MCR-ZN1", "MCR-CU1", "MCR-B01"],
     },
     "Spodosols": {
         "coverage_pct": 22, "pH": 4.77, "CEC": 4.0, "base_sat_pct": 12,
@@ -354,6 +389,19 @@ SOIL_TYPES = {
         "notes": "Sandy, lowest fertility, ~31% lower yield vs Ultisols",
         "n_reduction_pct": 0, "p_reduction_pct": 0,
         "yield_factor": 0.69,
+        "n_leach_pct": 57, "p_fix_pct": 27, "k_leach_pct": 30,
+        "micronutrients": {"B_low": 0.08, "B_high": 0.25, "Zn_low": 0.40, "Zn_high": 1.00,
+                           "Cu_low": 0.30, "Cu_high": 0.80},
+    },
+    "Andisols": {
+        "coverage_pct": 2, "pH": 5.2, "CEC": 25.0, "base_sat_pct": 20,
+        "N_g_kg": 3.5, "P_mg_kg": 15, "K_cmol_kg": 0.20,
+        "notes": "Volcanic, P-fixation 82% HIGHEST, allophane minerals",
+        "n_reduction_pct": 30, "p_reduction_pct": 0,
+        "yield_factor": 0.95,
+        "n_leach_pct": 27, "p_fix_pct": 62, "k_leach_pct": 12,
+        "micronutrients": {"B_low": 0.30, "B_high": 0.80, "Zn_low": 1.50, "Zn_high": 3.50,
+                           "Cu_low": 1.00, "Cu_high": 2.50},
     },
 }
 
@@ -405,8 +453,8 @@ NPK_BY_AGE = {
     "Old 16+yr": {"N": 130, "P": 55, "K": 150},
 }
 
-# CAPEX estimates by stage (USD)
-CAPEX_ITEMS = {
+# CAPEX estimates by stage (USD) — LEGACY SUMMARY (replaced by detailed below)
+CAPEX_ITEMS_LEGACY = {
     "Stage 1 — Shredder (EFB)": 85000,
     "Stage 1 — Hammer mill": 45000,
     "Stage 1 — Mixing tank + conveyor": 35000,
@@ -425,6 +473,225 @@ CAPEX_ITEMS = {
     "Utilities — Water treatment": 25000,
     "Utilities — Electrical infrastructure": 30000,
     "Laboratory — Basic QC lab": 35000,
+}
+
+# ═══════════════════════════════════════════════════════════════
+# UPDATED CAPEX: DETAILED S1 MACHINERY PER RESIDUE LINE
+# (from S14 Process Engineering Ascii — Mar 2026)
+# ═══════════════════════════════════════════════════════════════
+
+S1_EFB_MACHINERY = {
+    "RCV-EFB-01 — EFB Receiving Hopper (50m3, hydraulic gate)": 28000,
+    "CVB-EFB-01 — Drag Chain Conveyor (12m x 600mm, VFD, 7.5kW)": 18000,
+    "ESD-01 — Primary Twin-Shaft Shredder (2x37kW = 74kW, 15-25 RPM)": 95000,
+    "CVB-EFB-02 — Incline Belt Conveyor (8m x 600mm, 30deg, 5.5kW)": 15000,
+    "BIN-EFB-01 — Buffer Bin (50m3, VFD screw feeder, 2.5hr cap)": 22000,
+    "ELB-01 — Lump Breaker twin-roller (30-50mm gap, 11kW)": 25000,
+    "EHM-01 — Hammer Mill (2mm screen, 37kW nameplate/24kW derated)": 65000,
+    "ESC-01 — Vibrating Screen linear (2mm mesh, 2x1.5kW)": 18000,
+    "EPR-01 — Screw Press twin-screw (62.5%->45-50% MC, 15kW)": 55000,
+    "BIN-EFB-301 — S2 Buffer Bin (50m3, 2.5hr)": 20000,
+    "EDC-01 — Baghouse Dust Collection": 15000,
+}
+S1_EFB_POWER_KW = 153  # nameplate
+S1_EFB_POWER_DERATED_KW = 140  # effective @ 65% Asian derate on hammer mill
+
+S1_OPDC_MACHINERY = {
+    "RCV-OPDC-01 — OPDC Receiving Hopper (20m3, hydraulic gate)": 18000,
+    "CVB-OPDC-01 — Drag Chain Conveyor (10m x 500mm, VFD, 5.5kW)": 14000,
+    "OSD-01 — Primary Twin-Shaft Shredder (2x22kW = 44kW, 15-25 RPM)": 72000,
+    "CVB-OPDC-02 — Incline Belt Conveyor (7m x 500mm, 30deg, 4kW)": 12000,
+    "BIN-OPDC-01 — Buffer Bin (20m3, VFD screw feeder, 4hr cap)": 16000,
+    "OLB-01 — Lump Breaker twin-roller (25-40mm gap, 7.5kW)": 20000,
+    "OHM-01 — Hammer Mill (2mm screen, 22kW nameplate/14kW derated)": 48000,
+    "OSC-01 — Vibrating Screen linear (2mm mesh, 2x1.1kW)": 14000,
+    "OPR-01 — Screw Press twin-screw (70-75%->60-62% MC, 11kW)": 42000,
+    "BIN-OPDC-301 — S2 Buffer Bin (15m3 concrete/carbon steel)": 14000,
+    "ODC-01 — Baghouse Dust Collection": 12000,
+}
+S1_OPDC_POWER_KW = 96.2  # nameplate
+S1_OPDC_POWER_DERATED_KW = 88.2  # effective
+
+S1_POS_MACHINERY = {
+    "PIT-POS-01 — POS Reception Pit (15m3, RC concrete, epoxy-coated)": 25000,
+    "T-SLD-101 — Sludge Holding Tank (5-8m3, SS304, sealed dome, 3.7kW agitator)": 35000,
+    "PMP-POS-01 — Sludge Transfer Pump (progressive cavity, SS316L, 5.5kW, VFD)": 18000,
+    "DCN-POS-01 — Decanter Centrifuge 3-phase (1.5t/h, Alfa Laval, 11kW)": 120000,
+    "BUF-POS-01 — S2 Buffer Bin (5m3, carbon steel + epoxy)": 12000,
+}
+S1_POS_POWER_KW = 20.2  # plus decanter auxiliaries
+
+# S1 to S2 Handoff specifications
+S1_S2_HANDOFF = {
+    "EFB": {"rate_t_hr": 13, "mc_pct": "45-50", "particle_mm": 2.0,
+            "gate": "B.G2: MC <= 50% before buffer acceptance"},
+    "OPDC": {"rate_t_hr": 3.5, "mc_pct": "60-62", "particle_mm": 2.0,
+             "gate": "C.G1: MC >= 40% floor; C.G2/G3: pH 8-9 + 24hr dwell"},
+    "POS": {"rate_t_hr": 0.55, "mc_pct": "65", "particle_mm": None,
+            "gate": "Fe gate: ICP-OES protocol CFI-LAB-POME-001"},
+}
+
+# POS Fe Iron Gate thresholds
+POS_FE_GATES = {
+    "< 3000 mg/kg DM": "20% WW blend rate",
+    "3000-5000 mg/kg DM": "10-15% blend",
+    "5000-8000 mg/kg DM": "5-10% + CaCO3 amendment",
+    "> 8000 mg/kg DM": "REJECT batch",
+}
+
+# ═══════════════════════════════════════════════════════════════
+# S2 to S3 HANDOFF EQUIPMENT
+# ═══════════════════════════════════════════════════════════════
+S2_S3_HANDOFF_EQUIPMENT = {
+    "S2 Chemical Mixing Tank (covered, 20m3, paddle mixer, 15kW)": 30000,
+    "S2 pH Monitoring Station (inline pH probe + datalogger)": 5000,
+    "S2 Neutralisation Bays (3x concrete bays, 50m3 each)": 45000,
+    "S2-S3 Transfer Conveyor (covered belt, 15m, 5.5kW)": 16000,
+    "S3 Biological Inoculation System (spray boom + tank)": 18000,
+    "S3 Composting Bays (covered, 5x 100m2 windrow bays)": 60000,
+    "S3 Aeration System (forced air + temperature probes)": 25000,
+    "S3 Turning Machine (windrow turner, 22kW)": 55000,
+}
+
+# ═══════════════════════════════════════════════════════════════
+# 20,000 SQM GREENHOUSE + IoT + AUTOMATION (BSF REARING FACILITY)
+# ═══════════════════════════════════════════════════════════════
+GREENHOUSE_20K_SQM = {
+    # Structure
+    "Greenhouse Structure — Steel frame, poly-carbonate panels (20,000 m2)": 1200000,
+    "Greenhouse Foundation — Concrete slab + drainage (20,000 m2)": 400000,
+    "Internal Partition Walls — BSF zone separation (40 bays x 500m2)": 120000,
+    "Rearing Tray System — Stacked 3-tier racks (20,000 m2 effective)": 350000,
+    "Blackout System — UV-blocking curtains + light baffles": 80000,
+    # Climate Control
+    "HVAC System — Evaporative cooling + exhaust fans (20,000 m2)": 280000,
+    "Heating System — Hot water pipes from mill waste heat": 150000,
+    "Humidification System — Fogging nozzles + RH control": 65000,
+    "Air Circulation Fans — 120 units, ceiling mount": 48000,
+    # IoT Sensors & Monitoring
+    "IoT Temperature Sensors — 200 units (5 per bay, wireless)": 30000,
+    "IoT Humidity Sensors — 200 units (5 per bay, wireless)": 25000,
+    "IoT CO2 Sensors — 40 units (1 per bay)": 16000,
+    "IoT pH Sensors — substrate monitoring, 80 units": 24000,
+    "IoT Weight Sensors — tray scales for yield tracking, 200 units": 40000,
+    "IoT Ammonia Sensors — 40 units (1 per bay)": 20000,
+    "Central IoT Gateway — LoRaWAN/WiFi hub + cloud dashboard": 15000,
+    "IoT Software Platform — Dashboard, alerts, analytics (annual license)": 25000,
+    # Automation
+    "Automated Feed Distribution System — conveyor + metering": 180000,
+    "Automated Larvae Harvesting System — vibrating separator + conveyor": 220000,
+    "Automated Tray Washing Station": 45000,
+    "Automated Climate Control PLC — Siemens/Allen-Bradley": 35000,
+    "SCADA System — Central control room, 4 screens": 40000,
+    # Utilities
+    "Water Supply System — treatment + distribution (20,000 m2)": 85000,
+    "Electrical Distribution — panels, cabling, backup genset": 120000,
+    "Waste Water Treatment — effluent from rearing": 60000,
+    "Fire Suppression System": 45000,
+    # Site Works
+    "Site Clearing & Grading (2.5 ha total footprint)": 80000,
+    "Access Roads — Internal + connection to mill (500m gravel)": 60000,
+    "Perimeter Fencing + Security": 35000,
+    "Drainage System — Surface + subsurface": 55000,
+    "Landscaping + Erosion Control": 20000,
+    "Staff Facilities — Office, changing rooms, canteen": 85000,
+    "Storage Warehouse — Finished product (500 m2)": 120000,
+}
+
+# ═══════════════════════════════════════════════════════════════
+# CIF INDONESIA FERTILISER PRICES (from Supabase — Mar 2026)
+# ═══════════════════════════════════════════════════════════════
+FERTILISER_PRICES = {
+    # March 1, 2026 CIF Indonesia prices (updated from ICIS + web search Apr 2026)
+    "Urea 46-0-0": {"price_usd_t": 270.00, "N_content_pct": 46.0,
+                     "source": "ICIS CIF Indonesia Mar 2026, NE Asia $270/t"},
+    "DAP 18-46-0": {"price_usd_t": 825.00, "N_pct": 18.0, "P2O5_pct": 46.0,
+                     "source": "ICIS CIF Indonesia Mar 2026, SE Asia $800-850/t cfr"},
+    "MOP 0-0-60": {"price_usd_t": 295.00, "K2O_pct": 60.0,
+                    "source": "ICIS CIF Indonesia Mar 2026, moderate decline from 2025 peak"},
+    "Kieserite": {"price_usd_t": 180.00, "MgO_pct": 27.0, "source": "Industry avg Mar 2026"},
+    "Ag Lime CaCO3": {"price_usd_t": 45.00, "source": "Industry avg Mar 2026"},
+    # Derived elemental values (recalculated from Mar 2026 prices)
+    "Elemental N": {"price_usd_kg": 0.587, "source": "Calculated: $270/460kg N"},
+    "Elemental P2O5": {"price_usd_kg": 1.793, "source": "Calculated: $825/460kg P2O5"},
+    "Elemental K2O": {"price_usd_kg": 0.492, "source": "Calculated: $295/600kg K2O"},
+    "Elemental MgO": {"price_usd_kg": 0.667, "source": "Calculated: $180/270kg MgO"},
+}
+
+# ═══════════════════════════════════════════════════════════════
+# SOIL AMENDMENTS — 16 commercial products (from Migration 32)
+# ═══════════════════════════════════════════════════════════════
+SOIL_AMENDMENTS = [
+    {"code": "NLR-001", "name": "Nitrification Inhibitor (DMPP)", "category": "n_leach_reducer",
+     "target": "N", "rate_low": 1, "rate_high": 2, "cost_usd_kg": 12.50, "efficacy_pct": 25,
+     "soils": ["ULTISOL", "SPODOSOL"], "peat_mandatory": False},
+    {"code": "NLR-002", "name": "Urease Inhibitor (NBPT)", "category": "n_leach_reducer",
+     "target": "N", "rate_low": 0.5, "rate_high": 1.5, "cost_usd_kg": 15.00, "efficacy_pct": 20,
+     "soils": ["ALL"], "peat_mandatory": False},
+    {"code": "NLR-003", "name": "Biochar (Palm Shell)", "category": "n_leach_reducer",
+     "target": "N", "rate_low": 500, "rate_high": 2000, "cost_usd_kg": 0.08, "efficacy_pct": 15,
+     "soils": ["SPODOSOL", "ULTISOL"], "peat_mandatory": False},
+    {"code": "PFR-001", "name": "Rock Phosphate (Reactive)", "category": "p_fix_reducer",
+     "target": "P", "rate_low": 250, "rate_high": 500, "cost_usd_kg": 0.35, "efficacy_pct": 30,
+     "soils": ["OXISOL", "ULTISOL", "ANDISOL"], "peat_mandatory": False},
+    {"code": "PFR-002", "name": "Mycorrhizal Inoculant", "category": "p_fix_reducer",
+     "target": "P", "rate_low": 2, "rate_high": 5, "cost_usd_kg": 25.00, "efficacy_pct": 40,
+     "soils": ["OXISOL", "ULTISOL"], "peat_mandatory": False},
+    {"code": "KSO-001", "name": "Muriate of Potash (KCl)", "category": "k_source",
+     "target": "K", "rate_low": 100, "rate_high": 300, "cost_usd_kg": 0.45, "efficacy_pct": 100,
+     "soils": ["ALL"], "peat_mandatory": False},
+    {"code": "KSO-002", "name": "Kieserite (MgSO4)", "category": "k_source",
+     "target": "K", "rate_low": 150, "rate_high": 400, "cost_usd_kg": 0.38, "efficacy_pct": 80,
+     "soils": ["HISTOSOL", "SPODOSOL"], "peat_mandatory": False},
+    {"code": "KSO-003", "name": "Palm Ash (PKSA)", "category": "k_source",
+     "target": "K", "rate_low": 200, "rate_high": 600, "cost_usd_kg": 0.00, "efficacy_pct": 90,
+     "soils": ["ALL"], "peat_mandatory": False},
+    {"code": "MCR-B01", "name": "Borax (Na2B4O7)", "category": "micronutrient",
+     "target": "B", "rate_low": 10, "rate_high": 25, "cost_usd_kg": 1.80, "efficacy_pct": 100,
+     "soils": ["HISTOSOL", "OXISOL", "SPODOSOL"], "peat_mandatory": False},
+    {"code": "MCR-ZN1", "name": "Zinc Sulfate (ZnSO4)", "category": "micronutrient",
+     "target": "Zn", "rate_low": 15, "rate_high": 40, "cost_usd_kg": 2.20, "efficacy_pct": 100,
+     "soils": ["HISTOSOL", "OXISOL", "SPODOSOL"], "peat_mandatory": True},
+    {"code": "MCR-CU1", "name": "Copper Sulfate (CuSO4)", "category": "micronutrient",
+     "target": "Cu", "rate_low": 10, "rate_high": 30, "cost_usd_kg": 3.50, "efficacy_pct": 100,
+     "soils": ["HISTOSOL", "SPODOSOL"], "peat_mandatory": True},
+    {"code": "MCR-FE1", "name": "Ferrous Sulfate (FeSO4)", "category": "micronutrient",
+     "target": "Fe", "rate_low": 20, "rate_high": 50, "cost_usd_kg": 0.60, "efficacy_pct": 100,
+     "soils": ["ALL"], "peat_mandatory": False},
+    {"code": "MCR-MN1", "name": "Manganese Sulfate (MnSO4)", "category": "micronutrient",
+     "target": "Mn", "rate_low": 15, "rate_high": 40, "cost_usd_kg": 1.40, "efficacy_pct": 100,
+     "soils": ["ALL"], "peat_mandatory": False},
+    {"code": "MCR-MIX", "name": "Complete Micronutrient Mix", "category": "micronutrient",
+     "target": "Multi", "rate_low": 25, "rate_high": 60, "cost_usd_kg": 4.50, "efficacy_pct": 90,
+     "soils": ["HISTOSOL", "OXISOL"], "peat_mandatory": False},
+    {"code": "LIM-001", "name": "Dolomitic Lime (CaCO3+MgCO3)", "category": "lime",
+     "target": "pH", "rate_low": 1000, "rate_high": 3000, "cost_usd_kg": 0.12, "efficacy_pct": 100,
+     "soils": ["ULTISOL", "OXISOL", "SPODOSOL"], "peat_mandatory": False},
+    {"code": "GYP-001", "name": "Gypsum (CaSO4)", "category": "gypsum",
+     "target": "Ca", "rate_low": 500, "rate_high": 1500, "cost_usd_kg": 0.15, "efficacy_pct": 100,
+     "soils": ["HISTOSOL", "ULTISOL"], "peat_mandatory": False},
+]
+
+# CFI Product Nutrients (from Migration 34 — Mar 2026)
+CFI_PRODUCT_NUTRIENTS = {
+    "S3W1": {
+        "name": "CFI Wave 1 Compost (EFB+OPDC)", "N_pct": 1.28, "P_pct": 0.18,
+        "K_pct": 1.72, "Ca_pct": 0.85, "Mg_pct": 0.32,
+        "Fe_ppm": 120, "Mn_ppm": 85, "B_ppm": None, "Zn_ppm": None, "Cu_ppm": None,
+        "app_rate_t_ha": 3.5, "cost_usd_t": 45.00, "confidence": "LDE-MODERATE",
+    },
+    "S5A": {
+        "name": "CFI BSF Frass (Insect Castings)", "N_pct": 2.85, "P_pct": 1.42,
+        "K_pct": 1.65, "Ca_pct": 3.20, "Mg_pct": 0.85,
+        "Fe_ppm": 450, "Mn_ppm": 180, "B_ppm": None, "Zn_ppm": None, "Cu_ppm": None,
+        "app_rate_t_ha": 2.0, "cost_usd_t": 120.00, "confidence": "LDE-MODERATE",
+    },
+    "S5B": {
+        "name": "CFI Defatted BSF Meal", "N_pct": 7.50, "P_pct": 0.95,
+        "K_pct": 1.10, "Ca_pct": 2.80, "Mg_pct": 0.60,
+        "Fe_ppm": 380, "Mn_ppm": 220, "B_ppm": None, "Zn_ppm": None, "Cu_ppm": None,
+        "app_rate_t_ha": 1.5, "cost_usd_t": 250.00, "confidence": "LDE-MODERATE",
+    },
 }
 
 
@@ -2469,32 +2736,171 @@ class CFICalculator:
     # ═══════════════════════════════════════════════════════════
     def _build_tab_capex_opex(self):
         ws = self.wb.create_sheet("CAPEX_OPEX")
-        _set_col_widths(ws, {"A": 44, "B": 20, "C": 20, "D": 30})
+        _set_col_widths(ws, {"A": 60, "B": 20, "C": 20, "D": 30})
 
         ws.merge_cells("A1:D1")
-        ws.cell(row=1, column=1, value="CAPEX & OPEX ANALYSIS").font = Font(bold=True, size=14, color=COLORS["header_font"])
+        ws.cell(row=1, column=1, value="CAPEX & OPEX ANALYSIS — FULL ENGINEERING BUILD").font = Font(bold=True, size=14, color=COLORS["header_font"])
         ws.cell(row=1, column=1).fill = FILL_HEADER
         ws.cell(row=1, column=1).alignment = ALIGN_CENTER
 
-        # CAPEX
-        _style_section_row(ws, 3, 4, "CAPITAL EXPENDITURE (CAPEX)")
         headers = ["Equipment / Item", "Estimated Cost (USD)", "Category"]
-        _style_header_row(ws, 4, 3)
+        r = 3
+        # --- S1 EFB LINE ---
+        _style_section_row(ws, r, 3, "S1 — EFB PROCESSING LINE (20 t/h, 153kW nameplate)")
+        r += 1
+        _style_header_row(ws, r, 3)
         for ci, h in enumerate(headers, 1):
-            ws.cell(row=4, column=ci, value=h)
-
-        for i, (item, cost) in enumerate(CAPEX_ITEMS.items()):
-            r = 5 + i
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        s1_efb_start = r
+        for item, cost in S1_EFB_MACHINERY.items():
             ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
             ws.cell(row=r, column=1).border = THIN_BORDER
             ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
             ws.cell(row=r, column=2).number_format = '$#,##0'
-            # Category
-            cat = item.split("—")[0].strip() if "—" in item else "Other"
+            ws.cell(row=r, column=3, value="S1-EFB").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="S1 EFB Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{s1_efb_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- S1 OPDC LINE ---
+        _style_section_row(ws, r, 3, "S1 — OPDC PROCESSING LINE (5 t/h, 96.2kW nameplate)")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        s1_opdc_start = r
+        for item, cost in S1_OPDC_MACHINERY.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=3, value="S1-OPDC").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="S1 OPDC Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{s1_opdc_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- S1 POS LINE ---
+        _style_section_row(ws, r, 3, "S1 — POS PROCESSING LINE (1.25 t/h, 20.2kW)")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        s1_pos_start = r
+        for item, cost in S1_POS_MACHINERY.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=3, value="S1-POS").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="S1 POS Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{s1_pos_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- S2-S3 HANDOFF EQUIPMENT ---
+        _style_section_row(ws, r, 3, "S2 CHEMICAL + S3 BIOLOGICAL — HANDOFF EQUIPMENT")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        s2s3_start = r
+        for item, cost in S2_S3_HANDOFF_EQUIPMENT.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=3, value="S2-S3").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="S2-S3 Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{s2s3_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- GREENHOUSE 20K SQM ---
+        _style_section_row(ws, r, 3, "BSF GREENHOUSE + IoT + AUTOMATION (20,000 m2)")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        gh_start = r
+        for item, cost in GREENHOUSE_20K_SQM.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            cat = "Greenhouse"
+            if "IoT" in item or "SCADA" in item or "PLC" in item:
+                cat = "IoT/Automation"
+            elif "Site" in item or "Road" in item or "Fence" in item or "Drain" in item or "Land" in item:
+                cat = "Site Works"
+            elif "Staff" in item or "Storage" in item or "Fire" in item:
+                cat = "Facilities"
+            elif "Water" in item or "Electrical" in item or "Waste" in item:
+                cat = "Utilities"
+            elif "Automated" in item:
+                cat = "Automation"
             ws.cell(row=r, column=3, value=cat).font = FONT_NORMAL
             ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="Greenhouse + IoT Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{gh_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
 
-        total_row = 5 + len(CAPEX_ITEMS)
+        # --- S5 PROCESSING ---
+        _style_section_row(ws, r, 3, "S5 EXTRACTION & POST-PROCESSING")
+        r += 1
+        s5_items = {
+            "S5A — Frass screening/bagging line": 20000,
+            "S5B — Larvae separation (vibrating + thermal)": 30000,
+            "S5B — Oil press (screw type, 85% eff)": 45000,
+            "S5B — Drying system (belt dryer)": 40000,
+            "Laboratory — QC lab (ICP-OES capable)": 45000,
+        }
+        s5_start = r
+        for item, cost in s5_items.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=3, value="S5/Lab").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="S5 Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{s5_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- TOTAL CAPEX ---
+        _style_section_row(ws, r, 3, "TOTAL CAPEX SUMMARY")
+        r += 1
+        total_row = r
+        ws.cell(row=r, column=1, value="TOTAL CAPEX (ALL STAGES + GREENHOUSE + SITE WORKS)").font = Font(bold=True, size=12)
+        c = ws.cell(row=r, column=2)
+        c.value = f'=IFERROR(SUM(B5:B{r-1}),0)'
+        _style_calc_cell(c)
+        c.font = Font(bold=True, size=12, color=COLORS["positive"])
+        c.number_format = '$#,##0'
         ws.cell(row=total_row, column=1, value="TOTAL CAPEX").font = Font(bold=True, size=12)
         c = ws.cell(row=total_row, column=2)
         c.value = f'=IFERROR(SUM(B5:B{total_row-1}),0)'
