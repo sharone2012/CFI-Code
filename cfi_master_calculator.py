@@ -481,45 +481,63 @@ CAPEX_ITEMS_LEGACY = {
 # ═══════════════════════════════════════════════════════════════
 
 S1_EFB_MACHINERY = {
-    "RCV-EFB-01 — EFB Receiving Hopper (50m3, hydraulic gate)": 28000,
-    "CVB-EFB-01 — Drag Chain Conveyor (12m x 600mm, VFD, 7.5kW)": 18000,
-    "ESD-01 — Primary Twin-Shaft Shredder (2x37kW = 74kW, 15-25 RPM)": 95000,
-    "CVB-EFB-02 — Incline Belt Conveyor (8m x 600mm, 30deg, 5.5kW)": 15000,
-    "BIN-EFB-01 — Buffer Bin (50m3, VFD screw feeder, 2.5hr cap)": 22000,
-    "ELB-01 — Lump Breaker twin-roller (30-50mm gap, 11kW)": 25000,
-    "EHM-01 — Hammer Mill (2mm screen, 37kW nameplate/24kW derated)": 65000,
-    "ESC-01 — Vibrating Screen linear (2mm mesh, 2x1.5kW)": 18000,
-    "EPR-01 — Screw Press twin-screw (62.5%->45-50% MC, 15kW)": 55000,
-    "BIN-EFB-301 — S2 Buffer Bin (50m3, 2.5hr)": 20000,
-    "EDC-01 — Baghouse Dust Collection": 15000,
+    # Source: CFI CAPEX v4.1 — S1 EFB Mechanical Pre-Processing (21 items, Apr 2026)
+    # Indonesian + Malaysian suppliers ONLY | 60 TPH FFB | All Mid USD
+    "TR-EFB-101 — Truck Receiving Bay (concrete ramp 6m×4m, 1.2m high)": 8000,
+    "RH-EFB-101 — Receiving Hopper 20m3 (304SS liner, 60deg walls, ultrasonic sensor)": 15000,
+    "AF-01 — Apron Feeder (3.5m×1.2m, AR400 pans, VFD 2-8 m/min, 7.5kW)": 12000,
+    "BC-01 — Belt Conveyor hopper-trommel (500mm belt, 4.5kW)": 7500,
+    "TR-2060 — Trommel Screen (2m dia×6m, 20mm perf, 10-15 RPM, 7.5kW)": 21500,
+    "BC-02 — Belt Conveyor trommel-magnet (4.5kW)": 7500,
+    "OBM-01 — Overband Magnet (self-cleaning belt, 250-400mm, 2.2kW)": 6750,
+    "BC-04 — Belt Conveyor magnet-metal detector (4.5kW)": 7500,
+    "MD-01 — Metal Detector (tunnel 1000×200mm, auto-reject gate, 0.5kW)": 8500,
+    "PR-01 — Screw Press CB-20T/C DUTY (37kW, 70pct-45-50pct MC, 13.8-9.8 t/hr)": 50000,
+    "PR-01B — Screw Press CB-20T/C STANDBY (immutable backup, 37kW)": 50000,
+    "BC-05 — Belt Conveyor press-shredder (4.5kW)": 7500,
+    "SD-01 — Primary Shredder KH-777 (dual shaft, AR400, 100-200-30-50mm, 90kW)": 24000,
+    "BC-06 — Belt Conveyor shredder-hammer mill (4.5kW)": 7500,
+    "HM-01 — Hammer Mill YTH-7.100 (1800 RPM, D90<=2mm, 55kW, spring isolation)": 18500,
+    "BC-07 — Belt Conveyor hammer mill-vibrating screen (4.5kW)": 7500,
+    "VS-01 — Vibrating Screen 2mm (D90<=2mm CLASS A gate, 1.5kW)": 17000,
+    "BC-08 — Belt Conveyor oversize recycle-HM-01 (2.2kW)": 5500,
+    "BC-09 — Belt Conveyor undersize-buffer bin (4.5kW)": 7500,
+    "BIN-EFB-201 — Buffer Bin 50m3 (live bottom, ~24hr dwell before S2)": 25000,
+    "EDC-01 — Dust Collector Baghouse (15,000 CFM, 200mm ducts, 18kW)": 22000,
 }
-S1_EFB_POWER_KW = 153  # nameplate
-S1_EFB_POWER_DERATED_KW = 140  # effective @ 65% Asian derate on hammer mill
+S1_EFB_TOTAL_MID_USD = 336250  # CAPEX v4.1 confirmed
+S1_EFB_POWER_KW = 253  # nameplate (excl. standby press)
+S1_EFB_POWER_DERATED_KW = 200  # effective @ 65% Asian derate on big motors
 
 S1_OPDC_MACHINERY = {
-    "RCV-OPDC-01 — OPDC Receiving Hopper (20m3, hydraulic gate)": 18000,
-    "CVB-OPDC-01 — Drag Chain Conveyor (10m x 500mm, VFD, 5.5kW)": 14000,
-    "OSD-01 — Primary Twin-Shaft Shredder (2x22kW = 44kW, 15-25 RPM)": 72000,
-    "CVB-OPDC-02 — Incline Belt Conveyor (7m x 500mm, 30deg, 4kW)": 12000,
-    "BIN-OPDC-01 — Buffer Bin (20m3, VFD screw feeder, 4hr cap)": 16000,
-    "OLB-01 — Lump Breaker twin-roller (25-40mm gap, 7.5kW)": 20000,
-    "OHM-01 — Hammer Mill (2mm screen, 22kW nameplate/14kW derated)": 48000,
-    "OSC-01 — Vibrating Screen linear (2mm mesh, 2x1.1kW)": 14000,
-    "OPR-01 — Screw Press twin-screw (70-75%->60-62% MC, 11kW)": 42000,
-    "BIN-OPDC-301 — S2 Buffer Bin (15m3 concrete/carbon steel)": 14000,
-    "ODC-01 — Baghouse Dust Collection": 12000,
+    # Source: CFI CAPEX v4.1 — S1 OPDC Dewatering + Buffer (11 items, Apr 2026)
+    "TR-OPDC-101 — Receiving Bay (concrete ramp, epoxy-coated hopper 15m3)": 5000,
+    "RH-OPDC-101 — Receiving Hopper 15m3 (3.5m×2.5m×2m, 150mm drain valve)": 7000,
+    "SF-01 — Screw Feeder DC (3m×300mm, 304SS, VFD 10-50 RPM, 5.5kW)": 10000,
+    "BC-10 — Belt Conveyor OPDC hopper-belt press (oil-resistant, 2.2kW)": 7000,
+    "PR-301 — Belt Filter Press Biorem MDS (70-75pct-60-62pct MC, 15-30kW) NEVER<40pct": 40000,
+    "BC-11 — Belt Conveyor belt press cake-loosener (2.2kW)": 6000,
+    "SD-301 — Finger-Screw Loosener/Lump Breaker (LOW SPEED ONLY, 37kW)": 15000,
+    "BC-SPRAY — Chemical Spray Conveyor 304SS (3-5m belt, PKSA coating, 2-4kW)": 14000,
+    "BUN-301 — Covered Buffer Bunker ~85t FW (concrete push-wall, 24-48hr pH dwell)": 30000,
+    "SIL-301 — EFB+OPDC Blending Silo (>=45deg conical base, sweep auger, 4-7.5kW)": 55000,
+    "BIN-OPDC-301 — Buffer Bin 20m3 (steel bin S1 discharge holding)": 15000,
 }
-S1_OPDC_POWER_KW = 96.2  # nameplate
-S1_OPDC_POWER_DERATED_KW = 88.2  # effective
+S1_OPDC_TOTAL_MID_USD = 204000  # CAPEX v4.1 confirmed
+S1_OPDC_POWER_KW = 78  # nameplate
+S1_OPDC_POWER_DERATED_KW = 65  # effective
 
 S1_POS_MACHINERY = {
-    "PIT-POS-01 — POS Reception Pit (15m3, RC concrete, epoxy-coated)": 25000,
-    "T-SLD-101 — Sludge Holding Tank (5-8m3, SS304, sealed dome, 3.7kW agitator)": 35000,
-    "PMP-POS-01 — Sludge Transfer Pump (progressive cavity, SS316L, 5.5kW, VFD)": 18000,
-    "DCN-POS-01 — Decanter Centrifuge 3-phase (1.5t/h, Alfa Laval, 11kW)": 120000,
-    "BUF-POS-01 — S2 Buffer Bin (5m3, carbon steel + epoxy)": 12000,
+    # Source: CFI CAPEX v4.1 — S1 POS/Sludge Line (6 items, DEC=RFQ, Apr 2026)
+    "DEC-SLD-101 — 3-Phase Decanter Centrifuge (3 m3/hr, 304SS bowl, 15-30kW) RFQ ONLY": 115000,
+    "P-SLD-101A — Sludge Feed Pump DUTY (progressive cavity 3-4 m3/hr, 7.5kW, 304SS)": 8000,
+    "P-SLD-101B — Sludge Feed Pump STANDBY (auto-switchover, 7.5kW)": 8000,
+    "T-SLD-101 — Sludge Buffer Tank 6-8m3 (304SS, 2.2kW agitator, sealed, H2S vent)": 12000,
+    "T-OIL-101 — Recovered Sludge Oil Tank 10m3 (carbon steel, bund, level gauge)": 8000,
+    "P-OIL-101 — Recovered Oil Transfer Pump (centrifugal/gear 5 m3/hr, 1.5kW)": 3000,
 }
-S1_POS_POWER_KW = 20.2  # plus decanter auxiliaries
+S1_POS_TOTAL_MID_USD = 154000  # CAPEX v4.1 confirmed
+S1_POS_POWER_KW = 33  # nameplate (excl. standby pump)
 
 # S1 to S2 Handoff specifications
 S1_S2_HANDOFF = {
@@ -540,18 +558,107 @@ POS_FE_GATES = {
 }
 
 # ═══════════════════════════════════════════════════════════════
-# S2 to S3 HANDOFF EQUIPMENT
+# S2 OPDC PKSA CHEMICAL TREATMENT (from CAPEX v4.1)
 # ═══════════════════════════════════════════════════════════════
-S2_S3_HANDOFF_EQUIPMENT = {
-    "S2 Chemical Mixing Tank (covered, 20m3, paddle mixer, 15kW)": 30000,
-    "S2 pH Monitoring Station (inline pH probe + datalogger)": 5000,
-    "S2 Neutralisation Bays (3x concrete bays, 50m3 each)": 45000,
-    "S2-S3 Transfer Conveyor (covered belt, 15m, 5.5kW)": 16000,
-    "S3 Biological Inoculation System (spray boom + tank)": 18000,
-    "S3 Composting Bays (covered, 5x 100m2 windrow bays)": 60000,
-    "S3 Aeration System (forced air + temperature probes)": 25000,
-    "S3 Turning Machine (windrow turner, 22kW)": 55000,
+S2_OPDC_CHEMICAL = {
+    # Source: CFI CAPEX v4.1 — Stage 2 OPDC PKSA Chemical Treatment (13 items, Apr 2026)
+    "M-OPDC-PKSA-01 — Paddle Mixer #1 (2t wet/batch, 75min, alkaline+oil resistant, 11kW)": 18000,
+    "M-OPDC-PKSA-02 — Paddle Mixer #2 (2t/batch, 11kW)": 18000,
+    "CV-OPDC-FEED-01 — Feed Screw Mixer 1 from BIN-OPDC-301 (2 t/hr, 2.2kW)": 3500,
+    "CV-OPDC-FEED-02 — Feed Screw Mixer 2 (2 t/hr, 2.2kW)": 3500,
+    "T-PKSA-OPDC-01 — PKSA Slurry Tank 10m3 HDPE + agitator (1.5kW)": 6000,
+    "P-PKSA-OPDC-01 — PKSA Slurry Pump centrifugal 5 m3/hr (1.5kW)": 3000,
+    "SPR-OPDC-01 — PKSA Spray System (spray bars, 2 mixers)": 3000,
+    "CV-OPDC-COL-01 — Collection Screw under mixers (3 t/hr, 3kW)": 8000,
+    "CV-OPDC-INCL-01 — Inclined Conveyor to bay level (3 t/hr, 4.5kW)": 10000,
+    "CV-OPDC-DIST-01 — Distribution Conveyor above Row A (3 t/hr, 4.5kW)": 12000,
+    "C-OPDC-BAY-A — Neutralisation Bays Row A x6 (12m×12m×1.5m RC, 2pct slope)": 48000,
+    "C-OPDC-BAY-B — pH Trim Bays Row B x3": 24000,
+    "S-OPDC-SPRAY-A-01 — Row A Liquor Sprinkler": 5000,
 }
+S2_OPDC_CHEMICAL_TOTAL_MID_USD = 162000  # CAPEX v4.1 confirmed
+
+# ═══════════════════════════════════════════════════════════════
+# S2→S3 DISPATCH: STORAGE + FINAL BLEND + TRUCK LOADING (CAPEX v4.1)
+# ═══════════════════════════════════════════════════════════════
+S2_S3_DISPATCH = {
+    # Source: CFI CAPEX v4.1 — S2-S3 Dispatch (14 items — ALL NEW, Apr 2026)
+    "CV-BAY-COL-01 — Substrate Collection Conveyor from EFB bays (15 t/hr, 7.5kW)": 18000,
+    "CV-BAY-COL-02 — Substrate Collection Conveyor from OPDC bays (5 t/hr, 4.5kW)": 12000,
+    "HT-BLEND-01 — Horizontal Substrate Holding Tank #1 100m3 (carbon steel, 4kW)": 35000,
+    "HT-BLEND-02 — Horizontal Substrate Holding Tank #2 50m3 OPDC buffer (3kW)": 22000,
+    "WB-EFB-01 — EFB Weigh Belt Feeder (VFD, ratio control 60:40, 15 t/hr, 2.2kW)": 8000,
+    "WB-OPDC-01 — OPDC Weigh Belt Feeder (VFD, ratio control, 5 t/hr, 2.2kW)": 8000,
+    "S-LIME-BLEND-01 — Limestone Auto-Auger Dosing CaCO3 (1.5kW) DATA GAP dose rate": 15000,
+    "B-BLEND-01 — Continuous Paddle Blender #1 (60:40 DM, pH 7-8.5, 55pct MC, 11kW)": 45000,
+    "B-BLEND-02 — Continuous Paddle Blender #2 N+1 redundancy (11kW)": 45000,
+    "pH-SENS-01 — Inline pH Sensor #1 blender discharge (GO/NO-GO gate)": 3500,
+    "pH-SENS-02 — Inline pH Sensor #2 redundant": 3500,
+    "HT-FINAL-01 — Final Substrate Storage Tank 200m3 (walking-floor, 5.5kW)": 65000,
+    "CV-DISPATCH-01 — Substrate Dispatch Inclined Conveyor 15m (15 t/hr, 7.5kW)": 20000,
+    "CHUTE-TRUCK-01 — Truck Loading Chute (4m wide, 1.0-1.5m free fall)": 8000,
+}
+S2_S3_DISPATCH_TOTAL_MID_USD = 308000  # CAPEX v4.1 confirmed
+
+# ═══════════════════════════════════════════════════════════════
+# SHARED ALL STAGES + S3 FINAL BLEND (CAPEX v4.1)
+# ═══════════════════════════════════════════════════════════════
+SHARED_EQUIPMENT = {
+    # Source: CFI CAPEX v4.1 — Shared All Stages + S3 Final Blend (3 items, Apr 2026)
+    "Limestone Storage & Dosing — CaCO3 manual bag discharge, covered, scales": 6000,
+    "Lonking/Bobcat FEL 3-5t diesel — bay-to-bay material transfer (55kW, shared)": 75000,
+    "Final Blending Hopper/Mixer 10-15m3 — EFB+OPDC pre-BSF, S3 (11kW)": 30000,
+}
+SHARED_EQUIPMENT_TOTAL_MID_USD = 111000  # CAPEX v4.1 confirmed
+
+# ═══════════════════════════════════════════════════════════════
+# PROCESS BUILDING CAPEX — EPC PACKAGES A1-A8 (CAPEX v4.1)
+# Source: FD_CAPEX_Building_Fit_Out_3.8.26.xlsx | IDR 15,800/USD
+# ═══════════════════════════════════════════════════════════════
+PROCESS_BUILDING_CAPEX = {
+    "A1 — Site Works (clearance 2.5ha, earthworks, roads, drainage perimeter)": 159750,
+    "A2 — Civil & Concrete (slabs, foundations, hoppers, neutr.bays, sludge pad)": 197720,
+    "A3 — Structural Steel & Cladding (S1 PEB 36×35m×10m + S2 shed + bay roof)": 570126,
+    "A4 — Welfare Fit-out (offices, changing, showers, canteen 40-pax, 50 lockers)": 107650,
+    "A5 — MEP Power & Lighting (MCCs S1+S2, LV switchboard, cabling 250kW)": 180005,
+    "A6 — MEP HVAC & Ventilation (AC offices, dust extraction, H2S biofilter)": 47160,
+    "A7 — MEP Plumbing & Drainage (water, POME routing, sludge feed, 250m3/day)": 77790,
+    "A8 — Process Building Items (supports, dust ducting, fire ext, safety railings)": 62710,
+    "EPC Contingency 8%": 112233,
+    "EPC Overheads & Margin 12%": 168349,
+    "Developer/Process Markup 20%": 336699,
+}
+PROCESS_BUILDING_TOTAL_USD = 2020192  # Total Building CAPEX to CFI confirmed
+
+# ═══════════════════════════════════════════════════════════════
+# ELECTRICAL PANELS & CONTROLS (CAPEX v4.1 — 10 items confirmed)
+# Source: CAPEX_FINAL_CFI_CAPEX_Breakdown_v1 + S1 Engineering §5.2
+# ═══════════════════════════════════════════════════════════════
+ELECTRICAL_PANELS = {
+    "ELEC-01 — Main Transformer 500kVA 11kV/400V (200kW + 25pct margin)": 35000,
+    "ELEC-02 — LV Main Switchboard 400V 1000A ACB": 18000,
+    "ELEC-03 — MCC Panel EFB Line (motor starters, VFDs, relays ~100kW)": 32500,
+    "ELEC-04 — MCC Panel OPDC Line (motor starters, VFDs ~50kW)": 32500,
+    "ELEC-05 — PLC x2 Siemens S7-1200 (64 DI/32 DO/16 AI each)": 14000,
+    "ELEC-06 — HMI Touchscreens x2 (15in IP65, SCADA-ready)": 8000,
+    "ELEC-07 — Cable Tray, Cabling, Earthing (full facility lump sum)": 38000,
+    "ELEC-08 — Compressed Air System (2x15kW screw compressors + ring main)": 22000,
+    "ELEC-09 — CCTV System (8 cameras 1080p, 30-day NVR)": 9500,
+    "ELEC-10 — Instrumentation (3 weighbridges + moisture sensors)": 18000,
+}
+ELECTRICAL_PANELS_TOTAL_MID_USD = 227500  # CAPEX v4.1 confirmed
+
+# ═══════════════════════════════════════════════════════════════
+# FIRE PROTECTION — items NOT in A8 (CAPEX v4.1 DATA GAP — RFQ required)
+# Items in A8 (fire ext $3,600, eye wash $1,500, sludge suppression $2,500)
+# are already included in PROCESS_BUILDING_CAPEX above
+# ═══════════════════════════════════════════════════════════════
+FIRE_PROTECTION_ADDITIONAL = {
+    "FIRE-HYDRANT-01 — Fire Hydrant Network (100mm mains, 16 bar) DATA GAP RFQ": 20000,
+    "FIRE-ALARM-01 — Fire Alarm System (detectors, panel, sirens) DATA GAP": 12000,
+    "FIRE-SUPPRESS-01 — Building Fire Suppression S1 (sprinkler/CO2) DATA GAP": 35000,
+}
+FIRE_PROTECTION_ADDITIONAL_TOTAL_MID_USD = 67000  # DATA GAP — contractor RFQ needed
 
 # ═══════════════════════════════════════════════════════════════
 # 20,000 SQM GREENHOUSE + IoT + AUTOMATION (BSF REARING FACILITY)
@@ -2821,7 +2928,7 @@ class CFICalculator:
         headers = ["Equipment / Item", "Estimated Cost (USD)", "Category"]
         r = 3
         # --- S1 EFB LINE ---
-        _style_section_row(ws, r, 3, "S1 — EFB PROCESSING LINE (20 t/h, 153kW nameplate)")
+        _style_section_row(ws, r, 3, "S1 — EFB MECHANICAL PRE-PROCESSING (21 items, $336,250 — CAPEX v4.1)")
         r += 1
         _style_header_row(ws, r, 3)
         for ci, h in enumerate(headers, 1):
@@ -2843,7 +2950,7 @@ class CFICalculator:
         r += 2
 
         # --- S1 OPDC LINE ---
-        _style_section_row(ws, r, 3, "S1 — OPDC PROCESSING LINE (5 t/h, 96.2kW nameplate)")
+        _style_section_row(ws, r, 3, "S1 — OPDC DEWATERING + BUFFER (11 items, $204,000 — CAPEX v4.1)")
         r += 1
         _style_header_row(ws, r, 3)
         for ci, h in enumerate(headers, 1):
@@ -2865,7 +2972,7 @@ class CFICalculator:
         r += 2
 
         # --- S1 POS LINE ---
-        _style_section_row(ws, r, 3, "S1 — POS PROCESSING LINE (1.25 t/h, 20.2kW)")
+        _style_section_row(ws, r, 3, "S1 — POS/SLUDGE LINE (6 items, $154,000 — DEC=RFQ — CAPEX v4.1)")
         r += 1
         _style_header_row(ws, r, 3)
         for ci, h in enumerate(headers, 1):
@@ -2886,15 +2993,37 @@ class CFICalculator:
         ws.cell(row=r, column=2).number_format = '$#,##0'
         r += 2
 
-        # --- S2-S3 HANDOFF EQUIPMENT ---
-        _style_section_row(ws, r, 3, "S2 CHEMICAL + S3 BIOLOGICAL — HANDOFF EQUIPMENT")
+        # --- S2 OPDC PKSA CHEMICAL TREATMENT ---
+        _style_section_row(ws, r, 3, "S2 — OPDC PKSA CHEMICAL TREATMENT (13 items, $162,000 — CAPEX v4.1)")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        s2_chem_start = r
+        for item, cost in S2_OPDC_CHEMICAL.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=3, value="S2-OPDC").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="S2 OPDC Chemical Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{s2_chem_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- S2→S3 DISPATCH: STORAGE + FINAL BLEND + TRUCK LOADING ---
+        _style_section_row(ws, r, 3, "S2-S3 DISPATCH: STORAGE + FINAL BLEND + TRUCK LOADING (14 items, $308,000 — CAPEX v4.1)")
         r += 1
         _style_header_row(ws, r, 3)
         for ci, h in enumerate(headers, 1):
             ws.cell(row=r, column=ci, value=h)
         r += 1
         s2s3_start = r
-        for item, cost in S2_S3_HANDOFF_EQUIPMENT.items():
+        for item, cost in S2_S3_DISPATCH.items():
             ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
             ws.cell(row=r, column=1).border = THIN_BORDER
             ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
@@ -2902,8 +3031,100 @@ class CFICalculator:
             ws.cell(row=r, column=3, value="S2-S3").font = FONT_NORMAL
             ws.cell(row=r, column=3).border = THIN_BORDER
             r += 1
-        ws.cell(row=r, column=1, value="S2-S3 Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=1, value="S2-S3 Dispatch Subtotal").font = Font(bold=True)
         ws.cell(row=r, column=2).value = f'=SUM(B{s2s3_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- SHARED ALL STAGES + S3 FINAL BLEND ---
+        _style_section_row(ws, r, 3, "SHARED ALL STAGES + S3 FINAL BLEND (3 items, $111,000 — CAPEX v4.1)")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        shared_start = r
+        for item, cost in SHARED_EQUIPMENT.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=3, value="Shared").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="Shared Equipment Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{shared_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- PROCESS BUILDING CAPEX A1-A8 ---
+        _style_section_row(ws, r, 3, "PROCESS BUILDING CAPEX — EPC PACKAGES A1-A8 ($2,020,192 — CAPEX v4.1)")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        bldg_start = r
+        for item, cost in PROCESS_BUILDING_CAPEX.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            cat = "EPC Base"
+            if "Contingency" in item or "Overheads" in item or "Markup" in item:
+                cat = "EPC Markup"
+            ws.cell(row=r, column=3, value=cat).font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="Process Building TOTAL").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{bldg_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- ELECTRICAL PANELS & CONTROLS ---
+        _style_section_row(ws, r, 3, "ELECTRICAL PANELS & CONTROLS (10 items, $227,500 — CAPEX v4.1)")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        elec_start = r
+        for item, cost in ELECTRICAL_PANELS.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=3, value="Electrical").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="Electrical Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{elec_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- FIRE PROTECTION (items NOT in A8 — DATA GAP, RFQ required) ---
+        _style_section_row(ws, r, 3, "FIRE PROTECTION — ADDITIONAL (NOT in A8, DATA GAP — RFQ required)")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        fire_start = r
+        for item, cost in FIRE_PROTECTION_ADDITIONAL.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=2).fill = PatternFill(start_color="FFCCCC", end_color="FFCCCC", fill_type="solid")
+            ws.cell(row=r, column=3, value="Fire/DATA GAP").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="Fire Protection Additional Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{fire_start}:B{r-1})'
         _style_calc_cell(ws.cell(row=r, column=2))
         ws.cell(row=r, column=2).number_format = '$#,##0'
         r += 2
