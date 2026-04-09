@@ -599,6 +599,81 @@ GREENHOUSE_20K_SQM = {
 }
 
 # ═══════════════════════════════════════════════════════════════
+# MOBILE EQUIPMENT, VEHICLES & FLEET
+# ═══════════════════════════════════════════════════════════════
+MOBILE_EQUIPMENT = {
+    # Loaders & earthmoving
+    "Wheel Loader — Komatsu WA100 or equiv (1.0m3 bucket, EFB/OPDC handling)": 85000,
+    "Wheel Loader — Komatsu WA70 or equiv (0.5m3 bucket, PKSA/compost)": 55000,
+    "Skid-Steer Loader / Bobcat — S650 or equiv (BSF frass, substrate)": 45000,
+    "Skid-Steer Loader / Bobcat — S450 or equiv (greenhouse internal)": 38000,
+    "Mini Excavator — 3.5t (site maintenance, drainage, pit cleaning)": 42000,
+    # Trucks
+    "Dump Truck — 10t (EFB transport mill to S1, internal)": 65000,
+    "Dump Truck — 10t (OPDC/POS transport mill to S1)": 65000,
+    "Flatbed Truck — 8t (finished product transport, frass/meal)": 55000,
+    "Tanker Truck — 5,000L (water, POME, liquid transfer)": 48000,
+    "Pickup Truck — 4x4 (site management, 2 units)": 60000,
+    # Forklifts
+    "Forklift — 3t diesel (warehouse, bagged product, 2 units)": 50000,
+    "Forklift — 1.5t electric (greenhouse internal, 2 units)": 36000,
+    # Trailers & attachments
+    "Tipping Trailer — 8t (substrate/frass haulage, 2 units)": 24000,
+    "Pallet Jacks — manual (4 units, warehouse)": 3200,
+    "Grab Bucket Attachment — for wheel loader (EFB)": 8000,
+    "Sweeper Attachment — for bobcat (greenhouse cleaning)": 6500,
+}
+
+# ═══════════════════════════════════════════════════════════════
+# STAFFING PER MACHINE / AREA — FULL HEADCOUNT
+# ═══════════════════════════════════════════════════════════════
+# Salary basis: Indonesian palm oil sector avg, USD/month
+STAFFING = {
+    # --- S1 PREPROCESSING ---
+    "S1 — EFB Line Operator (shredder + hammer mill)": {"headcount": 2, "salary_usd": 450, "shift": "2-shift", "notes": "1 per shift, monitors feed + oversize return"},
+    "S1 — EFB Conveyor / Screen Operator": {"headcount": 2, "salary_usd": 400, "shift": "2-shift", "notes": "Belt + vibrating screen monitoring"},
+    "S1 — EFB Screw Press Operator": {"headcount": 2, "salary_usd": 450, "shift": "2-shift", "notes": "MC control, filtrate routing"},
+    "S1 — OPDC Line Operator (shredder + hammer mill)": {"headcount": 2, "salary_usd": 450, "shift": "2-shift", "notes": ""},
+    "S1 — OPDC Conveyor / Press Operator": {"headcount": 2, "salary_usd": 400, "shift": "2-shift", "notes": ""},
+    "S1 — POS Decanter Operator": {"headcount": 1, "salary_usd": 550, "shift": "day", "notes": "Skilled: centrifuge operation + Fe gate sampling"},
+    "S1 — Wheel Loader Operator (EFB/OPDC feed)": {"headcount": 2, "salary_usd": 500, "shift": "2-shift", "notes": "Komatsu WA100"},
+    "S1 — Dump Truck Driver (mill to S1)": {"headcount": 2, "salary_usd": 450, "shift": "2-shift", "notes": "2x 10t dump trucks"},
+    # --- S2 CHEMICAL TREATMENT ---
+    "S2 — Chemical Dosing Operator": {"headcount": 2, "salary_usd": 500, "shift": "2-shift", "notes": "PKSA/chemical mixing, pH monitoring"},
+    "S2 — Neutralisation Bay Attendant": {"headcount": 2, "salary_usd": 400, "shift": "2-shift", "notes": "Turnings at 8-12hr and 16-20hr"},
+    # --- S3 BIOLOGICAL TREATMENT ---
+    "S3 — Biological Inoculation Technician": {"headcount": 1, "salary_usd": 600, "shift": "day", "notes": "Consortium preparation, spray application"},
+    "S3 — Composting / Windrow Operator": {"headcount": 2, "salary_usd": 450, "shift": "2-shift", "notes": "Windrow turner + aeration monitoring"},
+    "S3 — Bobcat Operator (substrate handling)": {"headcount": 1, "salary_usd": 450, "shift": "day", "notes": "S650 skid-steer"},
+    # --- S4 BSF GREENHOUSE ---
+    "S4 — Greenhouse Supervisor": {"headcount": 1, "salary_usd": 900, "shift": "day", "notes": "Overall BSF rearing management"},
+    "S4 — BSF Tray Attendant (feeding + monitoring)": {"headcount": 8, "salary_usd": 400, "shift": "2-shift", "notes": "4 per shift, 5000m2 per attendant"},
+    "S4 — BSF Neonate Nursery Technician": {"headcount": 2, "salary_usd": 550, "shift": "2-shift", "notes": "Colony management, egg collection"},
+    "S4 — Greenhouse Climate / IoT Technician": {"headcount": 1, "salary_usd": 700, "shift": "day", "notes": "SCADA/PLC, sensor maintenance"},
+    "S4 — Bobcat Operator (greenhouse internal)": {"headcount": 2, "salary_usd": 450, "shift": "2-shift", "notes": "S450, substrate + frass movement"},
+    "S4 — Forklift Operator (greenhouse)": {"headcount": 2, "salary_usd": 400, "shift": "2-shift", "notes": "1.5t electric forklifts"},
+    # --- S5 EXTRACTION & POST-PROCESSING ---
+    "S5A — Frass Screening / Bagging Operator": {"headcount": 2, "salary_usd": 400, "shift": "2-shift", "notes": ""},
+    "S5B — Larvae Separation Operator": {"headcount": 2, "salary_usd": 450, "shift": "2-shift", "notes": "Vibrating separator + thermal"},
+    "S5B — Oil Press / Dryer Operator": {"headcount": 2, "salary_usd": 500, "shift": "2-shift", "notes": "Screw press + belt dryer"},
+    # --- WAREHOUSE & LOGISTICS ---
+    "Warehouse — Forklift Operator": {"headcount": 2, "salary_usd": 400, "shift": "2-shift", "notes": "3t diesel forklift"},
+    "Warehouse — Storeman / Inventory": {"headcount": 1, "salary_usd": 450, "shift": "day", "notes": "Stock control, dispatch"},
+    "Logistics — Flatbed Truck Driver": {"headcount": 1, "salary_usd": 450, "shift": "day", "notes": "Product delivery"},
+    "Logistics — Tanker Truck Driver": {"headcount": 1, "salary_usd": 450, "shift": "day", "notes": "Water/POME"},
+    # --- MANAGEMENT & SUPPORT ---
+    "Site Manager": {"headcount": 1, "salary_usd": 1500, "shift": "day", "notes": "Overall plant management"},
+    "Production Supervisor (S1-S3)": {"headcount": 1, "salary_usd": 1000, "shift": "day", "notes": "Preprocessing + treatment"},
+    "Quality Control / Lab Technician": {"headcount": 2, "salary_usd": 650, "shift": "day", "notes": "pH, MC, ICP-OES, sampling"},
+    "Maintenance Technician (mechanical)": {"headcount": 2, "salary_usd": 600, "shift": "day", "notes": "All mechanical equipment"},
+    "Maintenance Technician (electrical/IoT)": {"headcount": 1, "salary_usd": 650, "shift": "day", "notes": "Electrical, sensors, PLC"},
+    "HSE Officer": {"headcount": 1, "salary_usd": 700, "shift": "day", "notes": "Safety, PPE, NaOH handling"},
+    "Admin / Finance": {"headcount": 2, "salary_usd": 500, "shift": "day", "notes": ""},
+    "Security (gate + night)": {"headcount": 3, "salary_usd": 350, "shift": "3-shift", "notes": "24/7 coverage"},
+    "Cleaner / General Labour": {"headcount": 4, "salary_usd": 350, "shift": "2-shift", "notes": "Site-wide"},
+}
+
+# ═══════════════════════════════════════════════════════════════
 # CIF INDONESIA FERTILISER PRICES (from Supabase — Mar 2026)
 # ═══════════════════════════════════════════════════════════════
 FERTILISER_PRICES = {
@@ -2736,7 +2811,7 @@ class CFICalculator:
     # ═══════════════════════════════════════════════════════════
     def _build_tab_capex_opex(self):
         ws = self.wb.create_sheet("CAPEX_OPEX")
-        _set_col_widths(ws, {"A": 60, "B": 20, "C": 20, "D": 30})
+        _set_col_widths(ws, {"A": 60, "B": 20, "C": 20, "D": 30, "E": 20, "F": 40})
 
         ws.merge_cells("A1:D1")
         ws.cell(row=1, column=1, value="CAPEX & OPEX ANALYSIS — FULL ENGINEERING BUILD").font = Font(bold=True, size=14, color=COLORS["header_font"])
@@ -2891,6 +2966,70 @@ class CFICalculator:
         ws.cell(row=r, column=2).number_format = '$#,##0'
         r += 2
 
+        # --- MOBILE EQUIPMENT & VEHICLES ---
+        _style_section_row(ws, r, 3, "MOBILE EQUIPMENT & VEHICLES")
+        r += 1
+        _style_header_row(ws, r, 3)
+        for ci, h in enumerate(headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        mob_start = r
+        for item, cost in MOBILE_EQUIPMENT.items():
+            ws.cell(row=r, column=1, value=item).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=cost).border = THIN_BORDER
+            ws.cell(row=r, column=2).number_format = '$#,##0'
+            ws.cell(row=r, column=3, value="Mobile").font = FONT_NORMAL
+            ws.cell(row=r, column=3).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="Mobile Equipment Subtotal").font = Font(bold=True)
+        ws.cell(row=r, column=2).value = f'=SUM(B{mob_start}:B{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=2))
+        ws.cell(row=r, column=2).number_format = '$#,##0'
+        r += 2
+
+        # --- STAFFING — FULL HEADCOUNT & LABOUR COST ---
+        _style_section_row(ws, r, 6, "STAFFING — FULL HEADCOUNT & LABOUR COST")
+        r += 1
+        staff_headers = ["Position", "Headcount", "Salary (USD/month)", "Shift", "Monthly Cost (USD)", "Notes"]
+        _style_header_row(ws, r, 6)
+        for ci, h in enumerate(staff_headers, 1):
+            ws.cell(row=r, column=ci, value=h)
+        r += 1
+        staff_start = r
+        for position, data in STAFFING.items():
+            ws.cell(row=r, column=1, value=position).font = FONT_NORMAL
+            ws.cell(row=r, column=1).border = THIN_BORDER
+            ws.cell(row=r, column=2, value=data["headcount"]).border = THIN_BORDER
+            ws.cell(row=r, column=2).alignment = ALIGN_CENTER
+            ws.cell(row=r, column=3, value=data["salary_usd"]).border = THIN_BORDER
+            ws.cell(row=r, column=3).number_format = '$#,##0'
+            ws.cell(row=r, column=4, value=data["shift"]).border = THIN_BORDER
+            ws.cell(row=r, column=4).alignment = ALIGN_CENTER
+            ws.cell(row=r, column=5).value = f'=B{r}*C{r}'
+            ws.cell(row=r, column=5).border = THIN_BORDER
+            ws.cell(row=r, column=5).number_format = '$#,##0'
+            _style_calc_cell(ws.cell(row=r, column=5))
+            ws.cell(row=r, column=6, value=data["notes"]).font = Font(size=9, italic=True)
+            ws.cell(row=r, column=6).border = THIN_BORDER
+            r += 1
+        ws.cell(row=r, column=1, value="TOTAL STAFFING").font = Font(bold=True, size=11)
+        ws.cell(row=r, column=2).value = f'=SUM(B{staff_start}:B{r-1})'
+        ws.cell(row=r, column=2).font = Font(bold=True)
+        ws.cell(row=r, column=2).alignment = ALIGN_CENTER
+        ws.cell(row=r, column=2).number_format = '0'
+        ws.cell(row=r, column=5).value = f'=SUM(E{staff_start}:E{r-1})'
+        _style_calc_cell(ws.cell(row=r, column=5))
+        ws.cell(row=r, column=5).font = Font(bold=True, size=12, color=COLORS["positive"])
+        ws.cell(row=r, column=5).number_format = '$#,##0'
+        staff_total_row = r
+        r += 1
+        ws.cell(row=r, column=1, value="ANNUAL LABOUR COST (x12 months)").font = Font(bold=True)
+        ws.cell(row=r, column=5).value = f'=E{staff_total_row}*12'
+        _style_calc_cell(ws.cell(row=r, column=5))
+        ws.cell(row=r, column=5).number_format = '$#,##0'
+        r += 2
+
         # --- TOTAL CAPEX ---
         _style_section_row(ws, r, 3, "TOTAL CAPEX SUMMARY")
         r += 1
@@ -2922,7 +3061,7 @@ class CFICalculator:
             ("BSF Neonates", '=IFERROR(S4_BSF_Rearing!B8,0)', "From Stage 4"),
             ("Processing (S5B)", '=IFERROR(S5B_BSF_Extraction!B29,0)', "From Stage 5B"),
             ("Energy / Utilities", '=IFERROR(S1_Preprocessing!B30,0)', "From Stage 1"),
-            ("Labour (estimated)", 8000, "10 workers @ $800/month"),
+            ("Labour (full staffing)", f'=E{staff_total_row}', f"67 staff — see staffing section row {staff_total_row}"),
             ("Maintenance (2% CAPEX/month)", f'=IFERROR(B{total_row}*0.02/12,0)', "Industry standard"),
             ("Quality Control / Lab", 2000, "Monthly QC testing"),
             ("Transport / Logistics", 3000, "Product distribution"),
